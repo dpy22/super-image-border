@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>文字转图片</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: sans-serif; background: #f5f5f5; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 30px 20px; }
+  h1 { font-size: 22px; margin-bottom: 20px; color: #333; }
+  .container { width: 100%; max-width: 720px; }
+  section { background: #fff; border: 1px solid #ddd; border-radius: 10px; padding: 18px; margin-bottom: 16px; }
+  section h2 { font-size: 15px; color: #555; margin-bottom: 12px; border-bottom: 1px solid #eee; padding-bottom: 8px; }
+  textarea { width: 100%; height: 180px; padding: 12px; font-size: 15px; border: 1px solid #ccc; border-radius: 8px; resize: vertical; font-family: sans-serif; line-height: 1.8; }
+  .row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 12px; align-items: center; }
+  label { font-size: 13px; color: #444; display: flex; align-items: center; gap: 6px; }
+  input[type=number] { width: 68px; padding: 5px 7px; border: 1px solid #ccc; border-radius: 6px; font-size: 13px; }
+  select { padding: 5px 7px; border: 1px solid #ccc; border-radius: 6px; font-size: 13px; }
+  input[type=color] { width: 36px; height: 28px; padding: 1px; border: 1px solid #ccc; border-radius: 6px; cursor: pointer; }
+  .btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+  button { padding: 9px 22px; background: #333; color: #fff; border: none; border-radius: 8px; font-size: 14px; cursor: pointer; }
+  button:hover { background: #555; }
+  .btn-green { background: #1a7f37; }
+  .btn-green:hover { background: #156d2f; }
+  .upload-area { border: 2px dashed #bbb; border-radius: 8px; padding: 20px; text-align: center; color: #888; font-size: 14px; cursor: pointer; transition: border-color .2s; }
+  .upload-area:hover { border-color: #888; }
+  .upload-area.has-img { border-color: #1a7f37; color: #1a7f37; }
+  #uploadPreview { max-width: 100%; max-height: 200px; display: none; margin-top: 10px; border-radius: 6px; border: 1px solid #ddd; }
+  .preview-box { margin-top: 16px; display: none; }
+  .preview-box img { max-width: 100%; border-radius: 6px; border: 1px solid #ddd; display: block; }
+  .preview-label { font-size: 13px; color: #888; margin-bottom: 6px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>📝 文字转图片 · 拼接工具</h1>
+
+  <!-- 文字设置 -->
+  <section>
+    <h2>文字图设置</h2>
+    <textarea id="inputText" placeholder="请在此粘贴或输入文字…"></textarea>
+    <div class="row">
+      <label>字号：<input type="number" id="fontSize" value="32" min="12" max="72"></label>
+      <label>每行字数：<input type="number" id="charsPerLine" value="20" min="5" max="40"></label>
+      <label>行间距：<input type="number" id="lineHeightMul" value="1.15" min="1.0" max="3" step="0.1"></label>
+      <label>文字图边距(px)：<input type="number" id="paddingVal" value="0" min="0" max="300"></label>
+      <label>水平对齐：<select id="alignMode">
+        <option value="left" selected>左对齐</option>
+        <option value="center">居中</option>
+        <option value="right">右对齐</option>
+        <option value="justify">两端对齐</option>
+        <option value="distribute">分散对齐</option>
+      </select></label>
+      <label>字体：<select id="fontFamily">
+        <option value="Times New Roman, serif" selected>Times New Roman</option>
+        <option value="SimSun, 宋体, serif">宋体</option>
+        <option value="SimHei, 黑体, sans-serif">黑体</option>
+        <option value="KaiTi, 楷体, serif">楷体</option>
+        <option value="FangSong, 仿宋, serif">仿宋</option>
+        <option value="Microsoft YaHei, 微软雅黑, sans-serif">微软雅黑</option>
+        <option value="Georgia, serif">Georgia</option>
+        <option value="Arial, sans-serif">Arial</option>
+        <option value="Helvetica, Arial, sans-serif">Helvetica</option>
+      </select></label>
+    </div>
+    <div class="btn-row">
+      <button onclick="generateText()">生成文字图</button>
+      <button class="btn-green" id="dlText" style="display:none" onclick="dlCanvas('text')">⬇ 下载文字图</button>
+    </div>
+    <div class="preview-box" id="textPreviewBox">
+      <div class="preview-label">文字图预览：</div>
+      <img id="textPreviewImg">
+    </div>
+  </section>
+
+  <!-- 上传图 -->
+  <section>
+    <h2>上传图（可选）</h2>
+    <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
+      点击上传图片（JPG / PNG / WebP）
+    </div>
+    <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="handleUpload(event)">
+    <img id="uploadPreview">
+    <div class="btn-row" style="margin-top:10px">
+      <button id="clearUpload" style="display:none;background:#c0392b" onclick="clearUploadedImg()">✕ 移除上传图</button>
+    </div>
+  </section>
+
+  <!-- 拼接设置 -->
+  <section>
+    <h2>拼接设置</h2>
+    <div class="row">
+      <label>边距(px)：<input type="number" id="mergeMargin" value="" min="0" max="500" placeholder="自动"></label>
+      <label>边距颜色：<input type="color" id="marginColor" value="#ffffff"></label>
+    </div>
+    <p style="font-size:12px;color:#999;margin-top:8px">边距默认为 1.618 × 字体大小；应用于四周及上传图与文字图之间的间隙。</p>
+    <div class="btn-row">
+      <button onclick="generateMerge()">生成拼接图</button>
+      <button class="btn-green" id="dlMerge" style="display:none" onclick="dlCanvas('merge')">⬇ 下载拼接图</button>
+    </div>
+    <div class="preview-box" id="mergePreviewBox">
+      <div class="preview-label">拼接图预览：</div>
+      <img id="mergePreviewImg">
+    </div>
+  </section>
+</div>
+
+<script>
+const scale = 3;
+let textCanvas = null;
+let uploadedImg = null;
+let mergeCanvas = null;
+
+/* ── 工具函数 ── */
+function measureChar(ctx, ch) { return ctx.measureText(ch).width; }
+function measureChars(ctx, t) { let w=0; for(const c of t) w+=measureChar(ctx,c); return w; }
+function drawSpaced(ctx, text, x0, y, W) {
+  const tw = measureChars(ctx, text);
+  const gap = (W - tw) / (text.length - 1);
+  let cx = x0;
+  for (const ch of text) { ctx.fillText(ch, cx, y); cx += measureChar(ctx, ch) + gap; }
+}
+
+/* ── 生成文字图 ── */
+function generateText() {
+  const raw = document.getElementById('inputText').value;
+  if (!raw) { alert('请先输入文字'); return; }
+  const fontSize = parseInt(document.getElementById('fontSize').value) || 32;
+  const charsPerLine = parseInt(document.getElementById('charsPerLine').value) || 20;
+  const lhMul = parseFloat(document.getElementById('lineHeightMul').value) || 1.15;
+  const padding = parseInt(document.getElementById('paddingVal').value) || 0;
+  const align = document.getElementById('alignMode').value;
+  const vAlign = 'top';
+  const fontFamily = document.getElementById('fontFamily').value;
+  const lineHeight = fontSize * lhMul;
+
+  const paragraphs = raw.split(/\n/);
+  const lines = [];
+  for (const para of paragraphs) {
+    if (para.trim().length === 0) { lines.push({ text:'', isFull:false, isEmpty:true }); continue; }
+    let i = 0;
+    while (i < para.length) {
+      lines.push({ text: para.slice(i, i+charsPerLine), isFull: i+charsPerLine < para.length });
+      i += charsPerLine;
+    }
+  }
+  if (!lines.length) { alert('没有可排版的文字'); return; }
+
+  const contentW = fontSize * charsPerLine;
+  const cW = contentW + padding * 2;
+  const cH = padding * 2 + lines.length * lineHeight - (lineHeight - fontSize);
+
+  const canvas = document.createElement('canvas');
+  canvas.width = cW * scale;
+  canvas.height = cH * scale;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(scale, scale);
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, cW, cH);
+  ctx.fillStyle = '#000000';
+  ctx.font = `${fontSize}px ${fontFamily}`;
+  ctx.textBaseline = vAlign;
+
+  // 根据 textBaseline 计算每行 y 坐标
+  const getY = (idx) => {
+    const lineTop = padding + idx * lineHeight;
+    if (vAlign === 'top') return lineTop;
+    if (vAlign === 'middle') return lineTop + lineHeight / 2;
+    return lineTop + lineHeight; // bottom
+  };
+
+  lines.forEach((line, idx) => {
+    if (line.isEmpty) return;
+    const y = getY(idx);
+    const { text, isFull } = line;
+    const tw = measureChars(ctx, text);
+    if (align === 'left') { ctx.fillText(text, padding, y); }
+    else if (align === 'center') { ctx.fillText(text, padding + (contentW - tw)/2, y); }
+    else if (align === 'right') { ctx.fillText(text, padding + contentW - tw, y); }
+    else if (align === 'justify') { isFull && text.length>1 ? drawSpaced(ctx,text,padding,y,contentW) : ctx.fillText(text,padding,y); }
+    else if (align === 'distribute') { text.length>1 ? drawSpaced(ctx,text,padding,y,contentW) : ctx.fillText(text,padding,y); }
+  });
+
+  textCanvas = canvas;
+  const url = canvas.toDataURL('image/png');
+  document.getElementById('textPreviewImg').src = url;
+  document.getElementById('textPreviewBox').style.display = 'block';
+  document.getElementById('dlText').style.display = 'inline-block';
+}
+
+/* ── 上传图 ── */
+function handleUpload(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const img = new Image();
+  img.onload = () => {
+    uploadedImg = img;
+    const prev = document.getElementById('uploadPreview');
+    prev.src = img.src;
+    prev.style.display = 'block';
+    document.getElementById('uploadArea').classList.add('has-img');
+    document.getElementById('uploadArea').textContent = '✔ 已上传：' + file.name;
+    document.getElementById('clearUpload').style.display = 'inline-block';
+  };
+  const reader = new FileReader();
+  reader.onload = (ev) => { img.src = ev.target.result; };
+  reader.readAsDataURL(file);
+}
+function clearUploadedImg() {
+  uploadedImg = null;
+  document.getElementById('uploadPreview').style.display = 'none';
+  document.getElementById('uploadArea').classList.remove('has-img');
+  document.getElementById('uploadArea').textContent = '点击上传图片（JPG / PNG / WebP）';
+  document.getElementById('clearUpload').style.display = 'none';
+  document.getElementById('fileInput').value = '';
+}
+
+/* ── 生成拼接图 ── */
+function generateMerge() {
+  if (!textCanvas) { alert('请先生成文字图'); return; }
+  const fontSize = parseInt(document.getElementById('fontSize').value) || 32;
+  const marginInput = document.getElementById('mergeMargin').value;
+  const margin = marginInput !== '' ? parseInt(marginInput) : Math.round(1.618 * fontSize);
+  const bgColor = document.getElementById('marginColor').value;
+
+  // 文字图尺寸（实际像素 / scale）
+  const tW = textCanvas.width / scale;
+  const tH = textCanvas.height / scale;
+
+  let uW = 0, uH = 0;
+  if (uploadedImg) {
+    // 上传图缩放到与文字图同宽（内容宽，不含边距）
+    const ratio = tW / uploadedImg.naturalWidth;
+    uW = tW;
+    uH = uploadedImg.naturalHeight * ratio;
+  }
+
+  // 拼接画布宽 = 文字图宽 + 左右边距
+  const cW = tW + margin * 2;
+  let cH = margin + tH + margin; // 纯文字图时
+  if (uploadedImg) {
+    cH = margin + uH + margin + tH + margin; // 上传图 + 间隙 + 文字图 + 下边距
+  }
+
+  const canvas = document.createElement('canvas');
+  canvas.width = cW * scale;
+  canvas.height = cH * scale;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(scale, scale);
+
+  // 背景
+  ctx.fillStyle = bgColor;
+  ctx.fillRect(0, 0, cW, cH);
+
+  let yOffset = margin;
+
+  // 绘制上传图
+  if (uploadedImg) {
+    ctx.drawImage(uploadedImg, margin, yOffset, uW, uH);
+    yOffset += uH + margin;
+  }
+
+  // 绘制文字图
+  ctx.drawImage(textCanvas, 0, 0, textCanvas.width, textCanvas.height, margin, yOffset, tW, tH);
+
+  mergeCanvas = canvas;
+  const url = canvas.toDataURL('image/png');
+  document.getElementById('mergePreviewImg').src = url;
+  document.getElementById('mergePreviewBox').style.display = 'block';
+  document.getElementById('dlMerge').style.display = 'inline-block';
+}
+
+/* ── 下载 ── */
+function dlCanvas(type) {
+  const c = type === 'text' ? textCanvas : mergeCanvas;
+  if (!c) return;
+  const a = document.createElement('a');
+  a.href = c.toDataURL('image/png');
+  a.download = type === 'text' ? '文字图.png' : '拼接图.png';
+  a.click();
+}
+</script>
+</body>
+</html>

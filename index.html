@@ -187,13 +187,14 @@
           <option value="fixed">固定宽度</option>
         </select>
       </label>
-      <label>每行汉字数 <input type="number" id="charsPerLine" value="28" min="5" max="120"></label>
+      <label>每行汉字数 <input type="number" id="charsPerLine" value="24" min="5" max="120"></label>
       <label>图片限宽(px) <input type="number" id="imageMaxWidth" value="1080" min="120" max="5000"></label>
       <label>固定宽度(px) <input type="number" id="fixedWidth" value="896" min="120" max="5000"></label>
       <label>文字内边距(px) <input type="number" id="paddingVal" value="0" min="0" max="500"></label>
       <label>外边距(px) <input type="number" id="outerMargin" value="40" min="0" max="800"></label>
       <label>图文间距(px) <input type="number" id="contentGap" value="40" min="0" max="800"></label>
-      <label>背景颜色 <input type="color" id="marginColor" value="#ffffff"></label>
+      <label>背景颜色 <input type="color" id="marginColor" value="#000000"></label>
+      <label>字体颜色 <input type="color" id="textColor" value="#ffffff"></label>
     </div>
     <p class="hint" id="widthModeHint">自动宽度：始终按每行汉字数决定文字宽度，上传图会缩放到同宽，避免大图撑宽。</p>
     </div>
@@ -225,7 +226,7 @@
 
 <script>
 const scale = 3;
-const DEFAULT_CJK_CHARS_PER_LINE = 28;
+const DEFAULT_CJK_CHARS_PER_LINE = 24;
 const DEFAULT_FONT_SIZE = 32;
 const DEFAULT_LINE_HEIGHT_MUL = 1.15;
 const DEFAULT_FIXED_WIDTH = 896;
@@ -357,7 +358,8 @@ function getOptions() {
     align: document.getElementById('alignMode').value,
     widthMode: document.getElementById('widthMode').value,
     fontFamily: document.getElementById('fontFamily').value,
-    bgColor: document.getElementById('marginColor').value
+    bgColor: document.getElementById('marginColor').value,
+    textColor: document.getElementById('textColor').value
   };
 }
 function resolveTextBoxWidth(ctx, options) {
@@ -451,9 +453,9 @@ function buildTextCanvas({ showPreview = true } = {}) {
   canvas.height = Math.ceil(canvasHeight * scale);
   const ctx = canvas.getContext('2d');
   ctx.scale(scale, scale);
-  ctx.fillStyle = '#ffffff';
-  ctx.fillRect(0, 0, canvasWidth, canvasHeight);
-  ctx.fillStyle = '#000000';
+  ctx.fillStyle = options.bgColor;
+  ctx.fillRect(0, 0, canvas.width / scale, canvas.height / scale);
+  ctx.fillStyle = options.textColor;
   ctx.font = `${options.fontSize}px ${options.fontFamily}`;
   ctx.textBaseline = 'alphabetic';
 
@@ -537,7 +539,7 @@ function generateMerge() {
   const ctx = canvas.getContext('2d');
   ctx.scale(scale, scale);
   ctx.fillStyle = options.bgColor;
-  ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+  ctx.fillRect(0, 0, canvas.width / scale, canvas.height / scale);
 
   let y = options.outerMargin;
   if (uploadedImg) {

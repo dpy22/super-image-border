@@ -3,192 +3,481 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>文字转图片</title>
+<title>文字拼接图片工具</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: sans-serif; background: #f5f5f5; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 30px 20px; }
-  h1 { font-size: 22px; margin-bottom: 20px; color: #333; }
-  .container { width: 100%; max-width: 720px; }
-  section { background: #fff; border: 1px solid #ddd; border-radius: 10px; padding: 18px; margin-bottom: 16px; }
-  section h2 { font-size: 15px; color: #555; margin-bottom: 12px; border-bottom: 1px solid #eee; padding-bottom: 8px; }
-  textarea { width: 100%; height: 180px; padding: 12px; font-size: 15px; border: 1px solid #ccc; border-radius: 8px; resize: vertical; font-family: sans-serif; line-height: 1.8; }
+  body {
+    font-family: "Microsoft YaHei", "微软雅黑", sans-serif;
+    background: #f5f5f5;
+    min-height: 100vh;
+    color: #222;
+    padding: 28px 18px 36px;
+  }
+  .container { width: 100%; max-width: 960px; margin: 0 auto; }
+  h1 { font-size: 24px; margin-bottom: 18px; color: #222; font-weight: 700; }
+  section { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 18px; margin-bottom: 14px; }
+  section h2 { font-size: 15px; color: #555; margin-bottom: 14px; border-bottom: 1px solid #eee; padding-bottom: 8px; }
+  .section-heading { margin-bottom: 0; }
+  .collapse-toggle {
+    width: 100%;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: transparent;
+    color: #555;
+    border: none;
+    border-radius: 0;
+    font-size: 15px;
+    font-weight: 700;
+    text-align: left;
+  }
+  .collapse-toggle:hover { background: transparent; color: #222; }
+  .style-arrow { font-size: 14px; line-height: 1; }
+  .collapsible-content { padding-top: 14px; }
+  .content-grid { display: grid; grid-template-columns: minmax(240px, 320px) 1fr; gap: 16px; align-items: start; }
+  .field-title { display: block; font-size: 13px; color: #444; margin-bottom: 8px; }
+  textarea {
+    width: 100%;
+    min-height: 210px;
+    padding: 12px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    resize: vertical;
+    font-family: inherit;
+    line-height: 1.8;
+    color: #222;
+    background: #fff;
+  }
+  textarea:focus, input:focus, select:focus, button:focus { outline: 2px solid #9bc2ff; outline-offset: 1px; }
   .row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 12px; align-items: center; }
-  label { font-size: 13px; color: #444; display: flex; align-items: center; gap: 6px; }
-  input[type=number] { width: 68px; padding: 5px 7px; border: 1px solid #ccc; border-radius: 6px; font-size: 13px; }
-  select { padding: 5px 7px; border: 1px solid #ccc; border-radius: 6px; font-size: 13px; }
-  input[type=color] { width: 36px; height: 28px; padding: 1px; border: 1px solid #ccc; border-radius: 6px; cursor: pointer; }
-  .btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
-  button { padding: 9px 22px; background: #333; color: #fff; border: none; border-radius: 8px; font-size: 14px; cursor: pointer; }
+  .control-grid { display: grid; grid-template-columns: repeat(3, minmax(180px, 1fr)); gap: 12px; }
+  label { font-size: 13px; color: #444; display: flex; align-items: center; gap: 6px; min-width: 0; }
+  .control-grid label { justify-content: space-between; }
+  input[type=number] { width: 84px; padding: 6px 8px; border: 1px solid #ccc; border-radius: 6px; font-size: 13px; }
+  input:disabled { background: #f3f3f3; color: #888; }
+  select { min-width: 104px; padding: 6px 8px; border: 1px solid #ccc; border-radius: 6px; font-size: 13px; background: #fff; }
+  input[type=color] { width: 38px; height: 30px; padding: 1px; border: 1px solid #ccc; border-radius: 6px; cursor: pointer; }
+  .btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; align-items: center; }
+  button {
+    padding: 9px 18px;
+    background: #333;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    font-family: inherit;
+  }
   button:hover { background: #555; }
-  .btn-green { background: #1a7f37; }
-  .btn-green:hover { background: #156d2f; }
-  .upload-area { border: 2px dashed #bbb; border-radius: 8px; padding: 20px; text-align: center; color: #888; font-size: 14px; cursor: pointer; transition: border-color .2s; }
-  .upload-area:hover { border-color: #888; }
-  .upload-area.has-img { border-color: #1a7f37; color: #1a7f37; }
-  #uploadPreview { max-width: 100%; max-height: 200px; display: none; margin-top: 10px; border-radius: 6px; border: 1px solid #ddd; }
-  .preview-box { margin-top: 16px; display: none; }
-  .preview-box img { max-width: 100%; border-radius: 6px; border: 1px solid #ddd; display: block; }
-  .preview-label { font-size: 13px; color: #888; margin-bottom: 6px; }
+  .btn-primary { background: #1a7f37; }
+  .btn-primary:hover { background: #156d2f; }
+  .btn-secondary { background: #4f5965; }
+  .btn-secondary:hover { background: #3f4751; }
+  .btn-danger { background: #c0392b; }
+  .btn-danger:hover { background: #9f3024; }
+  .upload-area {
+    min-height: 118px;
+    border: 2px dashed #bbb;
+    border-radius: 8px;
+    padding: 18px;
+    text-align: center;
+    color: #777;
+    font-size: 14px;
+    cursor: pointer;
+    transition: border-color .2s, color .2s, background .2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .upload-area:hover { border-color: #888; background: #fafafa; }
+  .upload-area.has-img { border-color: #1a7f37; color: #1a7f37; background: #f6fbf7; }
+  #uploadPreview { max-width: 100%; max-height: 220px; display: none; margin-top: 10px; border-radius: 6px; border: 1px solid #ddd; }
+  .hint { font-size: 12px; color: #888; margin-top: 8px; line-height: 1.6; }
+  .output-layout { display: grid; grid-template-columns: 1.25fr .75fr; gap: 16px; align-items: start; }
+  .preview-box { display: none; }
+  .preview-box img { max-width: 100%; border-radius: 6px; border: 1px solid #ddd; display: block; background: #fff; }
+  .preview-label { font-size: 13px; color: #777; margin-bottom: 8px; }
+  .empty-preview {
+    border: 1px dashed #cfcfcf;
+    border-radius: 8px;
+    min-height: 180px;
+    color: #888;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    text-align: center;
+    padding: 16px;
+  }
+  @media (max-width: 760px) {
+    body { padding: 18px 12px 28px; }
+    h1 { font-size: 21px; }
+    section { padding: 14px; }
+    .content-grid, .output-layout { grid-template-columns: 1fr; }
+    .control-grid { grid-template-columns: 1fr; }
+    .control-grid label { justify-content: flex-start; }
+  }
 </style>
 </head>
 <body>
 <div class="container">
-  <h1>📝 文字转图片 · 拼接工具</h1>
+  <h1>文字拼接图片工具</h1>
 
-  <!-- 文字设置 -->
   <section>
-    <h2>文字图设置</h2>
-    <textarea id="inputText" placeholder="请在此粘贴或输入文字…"></textarea>
-    <div class="row">
-      <label>字号：<input type="number" id="fontSize" value="32" min="12" max="72"></label>
-      <label>每行字数：<input type="number" id="charsPerLine" value="20" min="5" max="40"></label>
-      <label>行间距：<input type="number" id="lineHeightMul" value="1.15" min="1.0" max="3" step="0.1"></label>
-      <label>文字图边距(px)：<input type="number" id="paddingVal" value="0" min="0" max="300"></label>
-      <label>水平对齐：<select id="alignMode">
-        <option value="left" selected>左对齐</option>
-        <option value="center">居中</option>
-        <option value="right">右对齐</option>
-        <option value="justify">两端对齐</option>
-        <option value="distribute">分散对齐</option>
-      </select></label>
-      <label>字体：<select id="fontFamily">
-        <option value="Times New Roman, serif" selected>Times New Roman</option>
-        <option value="SimSun, 宋体, serif">宋体</option>
-        <option value="SimHei, 黑体, sans-serif">黑体</option>
-        <option value="KaiTi, 楷体, serif">楷体</option>
-        <option value="FangSong, 仿宋, serif">仿宋</option>
-        <option value="Microsoft YaHei, 微软雅黑, sans-serif">微软雅黑</option>
-        <option value="Georgia, serif">Georgia</option>
-        <option value="Arial, sans-serif">Arial</option>
-        <option value="Helvetica, Arial, sans-serif">Helvetica</option>
-      </select></label>
-    </div>
-    <div class="btn-row">
-      <button onclick="generateText()">生成文字图</button>
-      <button class="btn-green" id="dlText" style="display:none" onclick="dlCanvas('text')">⬇ 下载文字图</button>
-    </div>
-    <div class="preview-box" id="textPreviewBox">
-      <div class="preview-label">文字图预览：</div>
-      <img id="textPreviewImg">
+    <h2>内容</h2>
+    <div class="content-grid">
+      <div>
+        <span class="field-title">图片</span>
+        <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
+          点击上传图片（JPG / PNG / WebP）
+        </div>
+        <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="handleUpload(event)">
+        <img id="uploadPreview" alt="上传图片预览">
+        <div class="btn-row" style="margin-top:10px">
+          <button class="btn-danger" id="clearUpload" style="display:none" onclick="clearUploadedImg()">移除图片</button>
+        </div>
+      </div>
+      <div>
+        <label class="field-title" for="inputText">文字</label>
+        <textarea id="inputText" placeholder="请在此粘贴或输入文字..."></textarea>
+      </div>
     </div>
   </section>
 
-  <!-- 上传图 -->
   <section>
-    <h2>上传图（可选）</h2>
-    <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
-      点击上传图片（JPG / PNG / WebP）
+    <h2 class="section-heading">
+      <button class="collapse-toggle" type="button" aria-expanded="false" aria-controls="styleContent" onclick="toggleStyleSection()">
+        <span>样式</span>
+        <span class="style-arrow" id="styleArrow" aria-hidden="true">▸</span>
+      </button>
+    </h2>
+    <div class="collapsible-content" id="styleContent" hidden>
+    <div class="control-grid">
+      <label>字体
+        <select id="fontFamily">
+          <option value="Times New Roman, serif">Times New Roman</option>
+          <option value="SimSun, 宋体, serif">宋体</option>
+          <option value="SimHei, 黑体, sans-serif">黑体</option>
+          <option value="KaiTi, 楷体, serif">楷体</option>
+          <option value="FangSong, 仿宋, serif">仿宋</option>
+          <option value="'Microsoft YaHei', '微软雅黑', sans-serif" selected>微软雅黑</option>
+          <option value="Georgia, serif">Georgia</option>
+          <option value="Arial, sans-serif">Arial</option>
+          <option value="Helvetica, Arial, sans-serif">Helvetica</option>
+        </select>
+      </label>
+      <label>字号 <input type="number" id="fontSize" value="32" min="12" max="96"></label>
+      <label>行距倍数 <input type="number" id="lineHeightMul" value="1.15" min="1.0" max="3" step="0.05"></label>
+      <label>水平对齐
+        <select id="alignMode">
+          <option value="left" selected>左对齐</option>
+          <option value="center">居中</option>
+          <option value="right">右对齐</option>
+          <option value="justify">两端对齐</option>
+          <option value="distribute">分散对齐</option>
+        </select>
+      </label>
+      <label>宽度模式
+        <select id="widthMode">
+          <option value="auto" selected>自动</option>
+          <option value="chars">按汉字数</option>
+          <option value="image">跟随图片</option>
+          <option value="fixed">固定宽度</option>
+        </select>
+      </label>
+      <label>每行汉字数 <input type="number" id="charsPerLine" value="28" min="5" max="120"></label>
+      <label>图片限宽(px) <input type="number" id="imageMaxWidth" value="1080" min="120" max="5000"></label>
+      <label>固定宽度(px) <input type="number" id="fixedWidth" value="896" min="120" max="5000"></label>
+      <label>文字内边距(px) <input type="number" id="paddingVal" value="0" min="0" max="500"></label>
+      <label>外边距(px) <input type="number" id="outerMargin" value="40" min="0" max="800"></label>
+      <label>图文间距(px) <input type="number" id="contentGap" value="40" min="0" max="800"></label>
+      <label>背景颜色 <input type="color" id="marginColor" value="#ffffff"></label>
     </div>
-    <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="handleUpload(event)">
-    <img id="uploadPreview">
-    <div class="btn-row" style="margin-top:10px">
-      <button id="clearUpload" style="display:none;background:#c0392b" onclick="clearUploadedImg()">✕ 移除上传图</button>
+    <p class="hint" id="widthModeHint">自动宽度：始终按每行汉字数决定文字宽度，上传图会缩放到同宽，避免大图撑宽。</p>
     </div>
   </section>
 
-  <!-- 拼接设置 -->
   <section>
-    <h2>拼接设置</h2>
-    <div class="row">
-      <label>边距(px)：<input type="number" id="mergeMargin" value="" min="0" max="500" placeholder="自动"></label>
-      <label>边距颜色：<input type="color" id="marginColor" value="#ffffff"></label>
+    <h2>输出</h2>
+    <div class="btn-row" style="margin-top:0">
+      <button class="btn-primary" onclick="generateMerge()">生成拼接图</button>
+      <button class="btn-secondary" onclick="generateText()">仅生成文字图</button>
+      <button class="btn-primary" id="dlMerge" style="display:none" onclick="dlCanvas('merge')">下载拼接图</button>
+      <button class="btn-secondary" id="dlText" style="display:none" onclick="dlCanvas('text')">下载文字图</button>
     </div>
-    <p style="font-size:12px;color:#999;margin-top:8px">边距默认为 1.618 × 字体大小；应用于四周及上传图与文字图之间的间隙。</p>
-    <div class="btn-row">
-      <button onclick="generateMerge()">生成拼接图</button>
-      <button class="btn-green" id="dlMerge" style="display:none" onclick="dlCanvas('merge')">⬇ 下载拼接图</button>
-    </div>
-    <div class="preview-box" id="mergePreviewBox">
-      <div class="preview-label">拼接图预览：</div>
-      <img id="mergePreviewImg">
+    <div class="output-layout" style="margin-top:16px">
+      <div>
+        <div class="preview-box" id="mergePreviewBox">
+          <div class="preview-label">拼接图预览</div>
+          <img id="mergePreviewImg" alt="拼接图预览">
+        </div>
+        <div class="empty-preview" id="emptyPreview">生成后在这里预览最终图片</div>
+      </div>
+      <div class="preview-box" id="textPreviewBox">
+        <div class="preview-label">文字图预览</div>
+        <img id="textPreviewImg" alt="文字图预览">
+      </div>
     </div>
   </section>
 </div>
 
 <script>
 const scale = 3;
+const DEFAULT_CJK_CHARS_PER_LINE = 28;
+const DEFAULT_FONT_SIZE = 32;
+const DEFAULT_LINE_HEIGHT_MUL = 1.15;
+const DEFAULT_FIXED_WIDTH = 896;
+const DEFAULT_IMAGE_MAX_WIDTH = 1080;
+const DEFAULT_SPACING = 40;
 let textCanvas = null;
 let uploadedImg = null;
 let mergeCanvas = null;
 
-/* ── 工具函数 ── */
-function measureChar(ctx, ch) { return ctx.measureText(ch).width; }
-function measureChars(ctx, t) { let w=0; for(const c of t) w+=measureChar(ctx,c); return w; }
-function drawSpaced(ctx, text, x0, y, W) {
-  const tw = measureChars(ctx, text);
-  const gap = (W - tw) / (text.length - 1);
-  let cx = x0;
-  for (const ch of text) { ctx.fillText(ch, cx, y); cx += measureChar(ctx, ch) + gap; }
+function getNumberValue(id, fallback) {
+  const value = Number(document.getElementById(id).value);
+  return Number.isFinite(value) ? value : fallback;
 }
+function clamp(value, min, max) {
+  return Math.min(Math.max(value, min), max);
+}
+function measureTextWidth(ctx, text) {
+  return ctx.measureText(text).width;
+}
+function getCjkUnitWidth(ctx, fontSize) {
+  const width = measureTextWidth(ctx, '汉');
+  return Number.isFinite(width) && width > 0 ? width : fontSize;
+}
+function getFontMetrics(ctx, fontSize) {
+  const metrics = ctx.measureText('Hgyp汉字');
+  const ascent = Math.ceil(metrics.actualBoundingBoxAscent || fontSize * 0.8);
+  const descent = Math.ceil(metrics.actualBoundingBoxDescent || fontSize * 0.25);
+  return { ascent, descent, height: ascent + descent };
+}
+function isLatinTokenChar(ch) {
+  return /^[A-Za-z0-9]$/.test(ch) || "'’._+-/%#@&".includes(ch);
+}
+function splitWrapTokens(text) {
+  const tokens = [];
+  let current = '';
+  let type = '';
+  const flush = () => {
+    if (current) tokens.push(current);
+    current = '';
+    type = '';
+  };
 
-/* ── 生成文字图 ── */
-function generateText() {
-  const raw = document.getElementById('inputText').value;
-  if (!raw) { alert('请先输入文字'); return; }
-  const fontSize = parseInt(document.getElementById('fontSize').value) || 32;
-  const charsPerLine = parseInt(document.getElementById('charsPerLine').value) || 20;
-  const lhMul = parseFloat(document.getElementById('lineHeightMul').value) || 1.15;
-  const padding = parseInt(document.getElementById('paddingVal').value) || 0;
-  const align = document.getElementById('alignMode').value;
-  const vAlign = 'top';
-  const fontFamily = document.getElementById('fontFamily').value;
-  const lineHeight = fontSize * lhMul;
-
-  const paragraphs = raw.split(/\n/);
-  const lines = [];
-  for (const para of paragraphs) {
-    if (para.trim().length === 0) { lines.push({ text:'', isFull:false, isEmpty:true }); continue; }
-    let i = 0;
-    while (i < para.length) {
-      lines.push({ text: para.slice(i, i+charsPerLine), isFull: i+charsPerLine < para.length });
-      i += charsPerLine;
+  for (const ch of Array.from(text)) {
+    const nextType = isLatinTokenChar(ch) ? 'latin' : (/\s/.test(ch) ? 'space' : 'char');
+    if (nextType === 'char') {
+      flush();
+      tokens.push(ch);
+    } else if (nextType === type) {
+      current += ch;
+    } else {
+      flush();
+      current = ch;
+      type = nextType;
     }
   }
-  if (!lines.length) { alert('没有可排版的文字'); return; }
+  flush();
+  return tokens;
+}
+function splitAlignmentUnits(text) {
+  return splitWrapTokens(text).filter(token => !/^\s+$/u.test(token));
+}
+function wrapTextByWidth(ctx, text, maxWidth) {
+  const tokens = splitWrapTokens(text);
+  const lines = [];
+  let line = '';
 
-  const contentW = fontSize * charsPerLine;
-  const cW = contentW + padding * 2;
-  const cH = padding * 2 + lines.length * lineHeight - (lineHeight - fontSize);
+  const pushLine = () => {
+    lines.push(line.replace(/\s+$/u, ''));
+    line = '';
+  };
+  const appendByChar = (textPart) => {
+    for (const ch of Array.from(textPart)) {
+      const candidate = line + ch;
+      if (line && measureTextWidth(ctx, candidate) > maxWidth) pushLine();
+      line += ch;
+    }
+  };
 
+  for (const token of tokens) {
+    if (/^\s+$/u.test(token) && !line) continue;
+
+    if (!line) {
+      if (measureTextWidth(ctx, token) <= maxWidth) line = token;
+      else appendByChar(token);
+      continue;
+    }
+
+    const candidate = line + token;
+    if (measureTextWidth(ctx, candidate) <= maxWidth) {
+      line = candidate;
+    } else if (/^\s+$/u.test(token)) {
+      pushLine();
+    } else {
+      pushLine();
+      if (measureTextWidth(ctx, token) <= maxWidth) line = token;
+      else appendByChar(token);
+    }
+  }
+
+  if (line) lines.push(line.replace(/\s+$/u, ''));
+  return lines;
+}
+function drawSpaced(ctx, text, x0, y, width) {
+  const units = splitAlignmentUnits(text);
+  if (units.length < 2) {
+    ctx.fillText(text, x0, y);
+    return;
+  }
+
+  const textWidth = units.reduce((total, unit) => total + measureTextWidth(ctx, unit), 0);
+  const gap = Math.max(0, (width - textWidth) / (units.length - 1));
+  let x = x0;
+  for (const unit of units) {
+    ctx.fillText(unit, x, y);
+    x += measureTextWidth(ctx, unit) + gap;
+  }
+}
+function getOptions() {
+  return {
+    raw: document.getElementById('inputText').value,
+    fontSize: clamp(getNumberValue('fontSize', DEFAULT_FONT_SIZE), 12, 96),
+    charsPerLine: clamp(getNumberValue('charsPerLine', DEFAULT_CJK_CHARS_PER_LINE), 5, 120),
+    lineHeightMul: clamp(getNumberValue('lineHeightMul', DEFAULT_LINE_HEIGHT_MUL), 1, 3),
+    textPadding: clamp(getNumberValue('paddingVal', 0), 0, 500),
+    fixedWidth: clamp(getNumberValue('fixedWidth', DEFAULT_FIXED_WIDTH), 120, 5000),
+    imageMaxWidth: clamp(getNumberValue('imageMaxWidth', DEFAULT_IMAGE_MAX_WIDTH), 120, 5000),
+    outerMargin: clamp(getNumberValue('outerMargin', DEFAULT_SPACING), 0, 800),
+    contentGap: clamp(getNumberValue('contentGap', DEFAULT_SPACING), 0, 800),
+    align: document.getElementById('alignMode').value,
+    widthMode: document.getElementById('widthMode').value,
+    fontFamily: document.getElementById('fontFamily').value,
+    bgColor: document.getElementById('marginColor').value
+  };
+}
+function resolveTextBoxWidth(ctx, options) {
+  const charsWidth = getCjkUnitWidth(ctx, options.fontSize) * options.charsPerLine + options.textPadding * 2;
+  let width = charsWidth;
+  if (options.widthMode === 'fixed') width = options.fixedWidth;
+  else if (options.widthMode === 'image') width = uploadedImg ? Math.min(uploadedImg.naturalWidth, options.imageMaxWidth) : charsWidth;
+  return Math.max(width, options.textPadding * 2 + 1);
+}
+function updateWidthControls() {
+  const mode = document.getElementById('widthMode').value;
+  const fixedInput = document.getElementById('fixedWidth');
+  const imageMaxInput = document.getElementById('imageMaxWidth');
+  const charsInput = document.getElementById('charsPerLine');
+  fixedInput.disabled = mode !== 'fixed';
+  imageMaxInput.disabled = mode !== 'image';
+  charsInput.disabled = mode === 'fixed' || mode === 'image';
+  const hints = {
+    auto: '自动宽度：始终按每行汉字数决定文字宽度，上传图会缩放到同宽，避免大图撑宽。',
+    chars: '按汉字数：文字宽度由每行汉字数决定，上传图会缩放到文字图宽度。',
+    image: '跟随图片：按图片原宽生成，但不会超过图片限宽；没有图片时回退到每行汉字数。',
+    fixed: '固定宽度：文字图和上传图都会适配到指定像素宽度。'
+  };
+  document.getElementById('widthModeHint').textContent = hints[mode];
+}
+function toggleStyleSection() {
+  const content = document.getElementById('styleContent');
+  const button = document.querySelector('.collapse-toggle');
+  const arrow = document.getElementById('styleArrow');
+  const nextExpanded = content.hidden;
+  content.hidden = !nextExpanded;
+  button.setAttribute('aria-expanded', String(nextExpanded));
+  arrow.textContent = nextExpanded ? '▾' : '▸';
+}
+function setPreview(canvas, imgId, boxId, buttonId) {
+  const url = canvas.toDataURL('image/png');
+  document.getElementById(imgId).src = url;
+  document.getElementById(boxId).style.display = 'block';
+  document.getElementById(buttonId).style.display = 'inline-block';
+}
+function hidePreview(imgId, boxId, buttonId) {
+  document.getElementById(imgId).removeAttribute('src');
+  document.getElementById(boxId).style.display = 'none';
+  document.getElementById(buttonId).style.display = 'none';
+}
+function markGeneratedStale() {
+  textCanvas = null;
+  mergeCanvas = null;
+  hidePreview('textPreviewImg', 'textPreviewBox', 'dlText');
+  hidePreview('mergePreviewImg', 'mergePreviewBox', 'dlMerge');
+  document.getElementById('emptyPreview').style.display = 'flex';
+}
+function buildTextCanvas({ showPreview = true } = {}) {
+  const options = getOptions();
+  if (!options.raw) {
+    alert('请先输入文字');
+    return null;
+  }
+
+  const measureCanvas = document.createElement('canvas');
+  const measureCtx = measureCanvas.getContext('2d');
+  measureCtx.font = `${options.fontSize}px ${options.fontFamily}`;
+
+  const textBoxWidth = resolveTextBoxWidth(measureCtx, options);
+  const contentWidth = Math.max(1, textBoxWidth - options.textPadding * 2);
+  const fontMetrics = getFontMetrics(measureCtx, options.fontSize);
+  const lineHeight = Math.max(options.fontSize * options.lineHeightMul, fontMetrics.height + 2);
+  const baselineOffset = (lineHeight - fontMetrics.height) / 2 + fontMetrics.ascent;
+
+  const paragraphs = options.raw.split(/\n/);
+  const lines = [];
+  for (const para of paragraphs) {
+    if (para.trim().length === 0) {
+      lines.push({ text: '', isFull: false, isEmpty: true });
+      continue;
+    }
+    const wrapped = wrapTextByWidth(measureCtx, para, contentWidth);
+    wrapped.forEach((text, idx) => {
+      lines.push({ text, isFull: idx < wrapped.length - 1 });
+    });
+  }
+  if (!lines.length) {
+    alert('没有可排版的文字');
+    return null;
+  }
+
+  const canvasWidth = textBoxWidth;
+  const canvasHeight = options.textPadding * 2 + lines.length * lineHeight;
   const canvas = document.createElement('canvas');
-  canvas.width = cW * scale;
-  canvas.height = cH * scale;
+  canvas.width = Math.ceil(canvasWidth * scale);
+  canvas.height = Math.ceil(canvasHeight * scale);
   const ctx = canvas.getContext('2d');
   ctx.scale(scale, scale);
   ctx.fillStyle = '#ffffff';
-  ctx.fillRect(0, 0, cW, cH);
+  ctx.fillRect(0, 0, canvasWidth, canvasHeight);
   ctx.fillStyle = '#000000';
-  ctx.font = `${fontSize}px ${fontFamily}`;
-  ctx.textBaseline = vAlign;
-
-  // 根据 textBaseline 计算每行 y 坐标
-  const getY = (idx) => {
-    const lineTop = padding + idx * lineHeight;
-    if (vAlign === 'top') return lineTop;
-    if (vAlign === 'middle') return lineTop + lineHeight / 2;
-    return lineTop + lineHeight; // bottom
-  };
+  ctx.font = `${options.fontSize}px ${options.fontFamily}`;
+  ctx.textBaseline = 'alphabetic';
 
   lines.forEach((line, idx) => {
     if (line.isEmpty) return;
-    const y = getY(idx);
+    const y = options.textPadding + idx * lineHeight + baselineOffset;
     const { text, isFull } = line;
-    const tw = measureChars(ctx, text);
-    if (align === 'left') { ctx.fillText(text, padding, y); }
-    else if (align === 'center') { ctx.fillText(text, padding + (contentW - tw)/2, y); }
-    else if (align === 'right') { ctx.fillText(text, padding + contentW - tw, y); }
-    else if (align === 'justify') { isFull && text.length>1 ? drawSpaced(ctx,text,padding,y,contentW) : ctx.fillText(text,padding,y); }
-    else if (align === 'distribute') { text.length>1 ? drawSpaced(ctx,text,padding,y,contentW) : ctx.fillText(text,padding,y); }
+    const textWidth = measureTextWidth(ctx, text);
+    const x = options.textPadding;
+
+    if (options.align === 'left') ctx.fillText(text, x, y);
+    else if (options.align === 'center') ctx.fillText(text, x + (contentWidth - textWidth) / 2, y);
+    else if (options.align === 'right') ctx.fillText(text, x + contentWidth - textWidth, y);
+    else if (options.align === 'justify') isFull ? drawSpaced(ctx, text, x, y, contentWidth) : ctx.fillText(text, x, y);
+    else if (options.align === 'distribute') drawSpaced(ctx, text, x, y, contentWidth);
   });
 
   textCanvas = canvas;
-  const url = canvas.toDataURL('image/png');
-  document.getElementById('textPreviewImg').src = url;
-  document.getElementById('textPreviewBox').style.display = 'block';
-  document.getElementById('dlText').style.display = 'inline-block';
+  if (showPreview) setPreview(canvas, 'textPreviewImg', 'textPreviewBox', 'dlText');
+  return { canvas, options };
 }
-
-/* ── 上传图 ── */
+function generateText() {
+  buildTextCanvas({ showPreview: true });
+}
 function handleUpload(e) {
   const file = e.target.files[0];
   if (!file) return;
@@ -199,8 +488,10 @@ function handleUpload(e) {
     prev.src = img.src;
     prev.style.display = 'block';
     document.getElementById('uploadArea').classList.add('has-img');
-    document.getElementById('uploadArea').textContent = '✔ 已上传：' + file.name;
+    document.getElementById('uploadArea').textContent = '已上传：' + file.name;
     document.getElementById('clearUpload').style.display = 'inline-block';
+    updateWidthControls();
+    markGeneratedStale();
   };
   const reader = new FileReader();
   reader.onload = (ev) => { img.src = ev.target.result; };
@@ -209,76 +500,76 @@ function handleUpload(e) {
 function clearUploadedImg() {
   uploadedImg = null;
   document.getElementById('uploadPreview').style.display = 'none';
+  document.getElementById('uploadPreview').removeAttribute('src');
   document.getElementById('uploadArea').classList.remove('has-img');
   document.getElementById('uploadArea').textContent = '点击上传图片（JPG / PNG / WebP）';
   document.getElementById('clearUpload').style.display = 'none';
   document.getElementById('fileInput').value = '';
+  updateWidthControls();
+  markGeneratedStale();
 }
-
-/* ── 生成拼接图 ── */
 function generateMerge() {
-  if (!textCanvas) { alert('请先生成文字图'); return; }
-  const fontSize = parseInt(document.getElementById('fontSize').value) || 32;
-  const marginInput = document.getElementById('mergeMargin').value;
-  const margin = marginInput !== '' ? parseInt(marginInput) : Math.round(1.618 * fontSize);
-  const bgColor = document.getElementById('marginColor').value;
+  const result = buildTextCanvas({ showPreview: true });
+  if (!result) return;
+  const { canvas: currentTextCanvas, options } = result;
 
-  // 文字图尺寸（实际像素 / scale）
-  const tW = textCanvas.width / scale;
-  const tH = textCanvas.height / scale;
+  const textWidth = currentTextCanvas.width / scale;
+  const textHeight = currentTextCanvas.height / scale;
+  let imageWidth = 0;
+  let imageHeight = 0;
 
-  let uW = 0, uH = 0;
   if (uploadedImg) {
-    // 上传图缩放到与文字图同宽（内容宽，不含边距）
-    const ratio = tW / uploadedImg.naturalWidth;
-    uW = tW;
-    uH = uploadedImg.naturalHeight * ratio;
+    const ratio = textWidth / uploadedImg.naturalWidth;
+    imageWidth = textWidth;
+    imageHeight = uploadedImg.naturalHeight * ratio;
   }
 
-  // 拼接画布宽 = 文字图宽 + 左右边距
-  const cW = tW + margin * 2;
-  let cH = margin + tH + margin; // 纯文字图时
-  if (uploadedImg) {
-    cH = margin + uH + margin + tH + margin; // 上传图 + 间隙 + 文字图 + 下边距
-  }
+  const contentWidth = Math.max(textWidth, imageWidth);
+  const canvasWidth = contentWidth + options.outerMargin * 2;
+  const canvasHeight = options.outerMargin
+    + (uploadedImg ? imageHeight + options.contentGap : 0)
+    + textHeight
+    + options.outerMargin;
 
   const canvas = document.createElement('canvas');
-  canvas.width = cW * scale;
-  canvas.height = cH * scale;
+  canvas.width = Math.ceil(canvasWidth * scale);
+  canvas.height = Math.ceil(canvasHeight * scale);
   const ctx = canvas.getContext('2d');
   ctx.scale(scale, scale);
+  ctx.fillStyle = options.bgColor;
+  ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
-  // 背景
-  ctx.fillStyle = bgColor;
-  ctx.fillRect(0, 0, cW, cH);
-
-  let yOffset = margin;
-
-  // 绘制上传图
+  let y = options.outerMargin;
   if (uploadedImg) {
-    ctx.drawImage(uploadedImg, margin, yOffset, uW, uH);
-    yOffset += uH + margin;
+    const x = options.outerMargin + (contentWidth - imageWidth) / 2;
+    ctx.drawImage(uploadedImg, x, y, imageWidth, imageHeight);
+    y += imageHeight + options.contentGap;
   }
 
-  // 绘制文字图
-  ctx.drawImage(textCanvas, 0, 0, textCanvas.width, textCanvas.height, margin, yOffset, tW, tH);
+  const textX = options.outerMargin + (contentWidth - textWidth) / 2;
+  ctx.drawImage(currentTextCanvas, 0, 0, currentTextCanvas.width, currentTextCanvas.height, textX, y, textWidth, textHeight);
 
   mergeCanvas = canvas;
-  const url = canvas.toDataURL('image/png');
-  document.getElementById('mergePreviewImg').src = url;
-  document.getElementById('mergePreviewBox').style.display = 'block';
-  document.getElementById('dlMerge').style.display = 'inline-block';
+  setPreview(canvas, 'mergePreviewImg', 'mergePreviewBox', 'dlMerge');
+  document.getElementById('emptyPreview').style.display = 'none';
 }
-
-/* ── 下载 ── */
 function dlCanvas(type) {
-  const c = type === 'text' ? textCanvas : mergeCanvas;
-  if (!c) return;
+  const canvas = type === 'text' ? textCanvas : mergeCanvas;
+  if (!canvas) return;
   const a = document.createElement('a');
-  a.href = c.toDataURL('image/png');
+  a.href = canvas.toDataURL('image/png');
   a.download = type === 'text' ? '文字图.png' : '拼接图.png';
   a.click();
 }
+
+updateWidthControls();
+document.querySelectorAll('textarea, input[type=number], input[type=color], select').forEach((control) => {
+  control.addEventListener('input', markGeneratedStale);
+  control.addEventListener('change', () => {
+    if (control.id === 'widthMode') updateWidthControls();
+    markGeneratedStale();
+  });
+});
 </script>
 </body>
 </html>

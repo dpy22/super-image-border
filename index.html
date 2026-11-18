@@ -2,8 +2,9 @@
 <html lang="zh">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>文字拼接图片工具</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>灵感边框 · 图文拼接与图片水印</title>
+<link rel="stylesheet" href="src/watermark.css">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
@@ -14,6 +15,15 @@
     padding: 28px 18px 36px;
   }
   .container { width: 100%; max-width: 960px; margin: 0 auto; }
+  body {
+    padding-top: calc(28px + var(--safe-area-inset-top, env(safe-area-inset-top, 0px)));
+    padding-bottom: calc(36px + var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px)));
+    padding-left: calc(18px + var(--safe-area-inset-left, env(safe-area-inset-left, 0px)));
+    padding-right: calc(18px + var(--safe-area-inset-right, env(safe-area-inset-right, 0px)));
+  }
+  [hidden] { display: none !important; }
+  button:disabled { opacity: .6; cursor: wait; }
+  #exportStatus { min-height: 20px; color: #444; }
   h1 { font-size: 24px; margin-bottom: 18px; color: #222; font-weight: 700; }
   section { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 18px; margin-bottom: 14px; }
   section h2 { font-size: 15px; color: #555; margin-bottom: 14px; border-bottom: 1px solid #eee; padding-bottom: 8px; }
@@ -112,7 +122,13 @@
     padding: 16px;
   }
   @media (max-width: 760px) {
-    body { padding: 18px 12px 28px; }
+    body {
+      padding-top: calc(18px + var(--safe-area-inset-top, env(safe-area-inset-top, 0px)));
+      padding-bottom: calc(28px + var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px)));
+      padding-left: calc(12px + var(--safe-area-inset-left, env(safe-area-inset-left, 0px)));
+      padding-right: calc(12px + var(--safe-area-inset-right, env(safe-area-inset-right, 0px)));
+    }
+    button { min-height: 44px; }
     h1 { font-size: 21px; }
     section { padding: 14px; }
     .content-grid, .output-layout { grid-template-columns: 1fr; }
@@ -123,15 +139,20 @@
 </head>
 <body>
 <div class="container">
-  <h1>文字拼接图片工具</h1>
+  <h1>灵感边框</h1>
+  <p class="app-subtitle">图文拼接 · 图片水印 · 本地离线处理</p>
+  <div class="tool-tabs" role="tablist" aria-label="图片工具">
+    <button type="button" id="mergeTab" role="tab" aria-selected="true" aria-controls="mergePanel" tabindex="0">图文拼接</button>
+    <button type="button" id="watermarkTab" role="tab" aria-selected="false" aria-controls="watermarkPanel" tabindex="-1">图片水印</button>
+  </div>
 
-  <section>
-    <h2>内容</h2>
+  <section id="sourceSection">
+    <h2 id="sourceHeading">内容</h2>
     <div class="content-grid">
       <div>
         <span class="field-title">图片</span>
-        <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
-          点击上传图片（JPG / PNG / WebP）
+        <div class="upload-area" id="uploadArea" role="button" tabindex="0" onclick="document.getElementById('fileInput').click()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
+          点击选择图片（JPG / PNG / WebP）
         </div>
         <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="handleUpload(event)">
         <img id="uploadPreview" alt="上传图片预览">
@@ -139,14 +160,15 @@
           <button class="btn-danger" id="clearUpload" style="display:none" onclick="clearUploadedImg()">移除图片</button>
         </div>
       </div>
-      <div>
+      <div id="mergeTextFields">
         <label class="field-title" for="inputText">文字</label>
         <textarea id="inputText" placeholder="请在此粘贴或输入文字..."></textarea>
       </div>
     </div>
   </section>
 
-  <section>
+  <div id="mergePanel" role="tabpanel" aria-labelledby="mergeTab">
+  <section id="mergeStyleSection">
     <h2 class="section-heading">
       <button class="collapse-toggle" type="button" aria-expanded="false" aria-controls="styleContent" onclick="toggleStyleSection()">
         <span>样式</span>
@@ -157,6 +179,7 @@
     <div class="control-grid">
       <label>字体
         <select id="fontFamily">
+          <option value="sans-serif">系统默认字体</option>
           <option value="Times New Roman, serif">Times New Roman</option>
           <option value="SimSun, 宋体, serif">宋体</option>
           <option value="SimHei, 黑体, sans-serif">黑体</option>
@@ -197,6 +220,7 @@
       <label>字体颜色 <input type="color" id="textColor" value="#ffffff"></label>
     </div>
     <p class="hint" id="widthModeHint">自动宽度：始终按每行汉字数决定文字宽度，上传图会缩放到同宽，避免大图撑宽。</p>
+    <p class="hint" data-native-only hidden>手机上建议使用系统默认字体；其他字体会在设备未安装时使用替代字体。</p>
     </div>
   </section>
 
@@ -207,7 +231,10 @@
       <button class="btn-secondary" onclick="generateText()">仅生成文字图</button>
       <button class="btn-primary" id="dlMerge" style="display:none" onclick="dlCanvas('merge')">下载拼接图</button>
       <button class="btn-secondary" id="dlText" style="display:none" onclick="dlCanvas('text')">下载文字图</button>
+      <button class="btn-secondary" id="shareImage" data-native-only hidden style="display:none" onclick="shareCanvas()">分享图片</button>
+      <button class="btn-secondary" id="watermarkGenerated" style="display:none" onclick="openWatermark(mergeCanvas ? 'merge' : 'text')">继续加水印</button>
     </div>
+    <p class="hint" id="exportStatus" role="status" aria-live="polite"></p>
     <div class="output-layout" style="margin-top:16px">
       <div>
         <div class="preview-box" id="mergePreviewBox">
@@ -222,6 +249,91 @@
       </div>
     </div>
   </section>
+  </div>
+
+  <div id="watermarkPanel" role="tabpanel" aria-labelledby="watermarkTab" hidden>
+    <div class="watermark-layout">
+      <section class="wm-preview-card" aria-label="水印实时预览">
+        <div class="wm-preview-heading"><h2>实时预览</h2><span class="wm-live-badge">随调随看</span></div>
+        <div class="wm-preview-stage" id="wmPreviewStage">
+          <div class="wm-empty" id="wmEmpty"><span aria-hidden="true">▧</span><strong>先选择一张图片</strong><p>添加署名，或用平铺水印标注用途</p></div>
+          <canvas id="wmPreview" hidden tabindex="0" role="img" aria-label="水印预览，单个水印可拖动或用方向键调整位置"></canvas>
+        </div>
+        <p class="hint" id="wmPreviewHint">选择图片后，水印效果会实时显示在这里。</p>
+      </section>
+
+      <div class="wm-controls">
+        <section>
+          <h2>水印内容</h2>
+          <label class="field-title" for="wmSource">图片来源</label>
+          <select id="wmSource" class="wm-wide">
+            <option value="original">所选原图</option>
+            <option value="merge" disabled>刚生成的拼接图</option>
+            <option value="text" disabled>刚生成的文字图</option>
+          </select>
+          <div class="wm-presets" aria-label="水印样式预设">
+            <button type="button" data-preset="signature">低调署名</button>
+            <button type="button" data-preset="label">清晰标签</button>
+            <button type="button" data-preset="tile">全图平铺</button>
+          </div>
+          <label class="field-title" for="wmText">水印文字</label>
+          <textarea id="wmText" class="wm-text" maxlength="200" rows="2" placeholder="输入署名、日期，或「仅供…使用」">© 我的作品</textarea>
+          <p class="hint">支持换行。水印设置自动保存在本机。</p>
+        </section>
+
+        <section>
+          <h2>样式与位置</h2>
+          <div class="wm-segment" role="group" aria-label="水印布局">
+            <button type="button" id="wmSingleMode" aria-pressed="true">单个水印</button>
+            <button type="button" id="wmTileMode" aria-pressed="false">全图平铺</button>
+          </div>
+          <div class="wm-position-field" id="wmPositionField">
+            <span class="field-title">位置 <span id="wmPositionName">右下角</span></span>
+            <div class="wm-position-grid" role="group" aria-label="水印位置">
+              <button type="button" data-position="0,0" aria-label="左上角" aria-pressed="false">↖</button>
+              <button type="button" data-position="0.5,0" aria-label="顶部居中" aria-pressed="false">↑</button>
+              <button type="button" data-position="1,0" aria-label="右上角" aria-pressed="false">↗</button>
+              <button type="button" data-position="0,0.5" aria-label="左侧居中" aria-pressed="false">←</button>
+              <button type="button" data-position="0.5,0.5" aria-label="正中间" aria-pressed="false">·</button>
+              <button type="button" data-position="1,0.5" aria-label="右侧居中" aria-pressed="false">→</button>
+              <button type="button" data-position="0,1" aria-label="左下角" aria-pressed="false">↙</button>
+              <button type="button" data-position="0.5,1" aria-label="底部居中" aria-pressed="false">↓</button>
+              <button type="button" data-position="1,1" aria-label="右下角" aria-pressed="true">↘</button>
+            </div>
+          </div>
+          <div class="wm-slider-field"><label for="wmSize">字号 <output for="wmSize" id="wmSizeValue">3%</output></label><input id="wmSize" type="range" min="1" max="12" step="0.1" value="3"><p class="hint">按图片短边比例计算，大小图保持相近观感。</p></div>
+          <div class="wm-slider-field"><label for="wmOpacity">不透明度 <output for="wmOpacity" id="wmOpacityValue">85%</output></label><input id="wmOpacity" type="range" min="5" max="100" step="1" value="85"></div>
+          <div class="wm-slider-field"><label for="wmMargin">边距 <output for="wmMargin" id="wmMarginValue">3%</output></label><input id="wmMargin" type="range" min="0" max="12" step="0.5" value="3"></div>
+          <div class="wm-slider-field"><label for="wmAngle">旋转 <output for="wmAngle" id="wmAngleValue">0°</output></label><input id="wmAngle" type="range" min="-90" max="90" step="1" value="0"></div>
+          <div class="wm-slider-field" id="wmSpacingField" hidden><label for="wmSpacing">平铺间距 <output for="wmSpacing" id="wmSpacingValue">18%</output></label><input id="wmSpacing" type="range" min="5" max="50" step="1" value="18"></div>
+          <div class="wm-style-row">
+            <label for="wmFont">字体 <select id="wmFont"><option value="sans-serif">系统黑体</option><option value="serif">系统衬线</option><option value="monospace">等宽字体</option></select></label>
+            <label for="wmColor">文字颜色 <input id="wmColor" type="color" value="#ffffff"></label>
+          </div>
+          <div class="wm-checkboxes">
+            <label><input id="wmBold" type="checkbox">加粗</label>
+            <label><input id="wmShadow" type="checkbox" checked>阴影</label>
+            <label><input id="wmOutline" type="checkbox">描边</label>
+            <label><input id="wmBackground" type="checkbox">深色底条</label>
+          </div>
+        </section>
+
+        <section class="wm-export-card">
+          <h2>导出图片</h2>
+          <label class="field-title" for="wmResolution">输出尺寸</label>
+          <select id="wmResolution" class="wm-wide"><option value="2560">高清 · 长边不超过 2560 像素</option><option value="original">保持原图像素尺寸</option><option value="1920">分享 · 长边不超过 1920 像素</option><option value="custom">自定义最长边</option></select>
+          <label id="wmCustomField" class="wm-custom-field" for="wmCustomEdge" hidden>最长边 <input id="wmCustomEdge" type="number" min="64" max="16384" value="3840" step="1">像素</label>
+          <div class="wm-size-info" id="wmSizeInfo">选择图片后显示实际导出尺寸</div>
+          <p class="hint" id="wmResolutionHint">导出不放大小图，原文件不会被覆盖。</p>
+          <label class="field-title" for="wmFormat" style="margin-top:14px">文件格式</label>
+          <select id="wmFormat" class="wm-wide"><option value="image/png">PNG · 无损编码，适合文字与截图</option><option value="image/jpeg">JPG · 文件较小，适合照片</option></select>
+          <div class="wm-slider-field" id="wmQualityField" hidden><label for="wmQuality">JPG 质量 <output id="wmQualityValue" for="wmQuality">95%</output></label><input id="wmQuality" type="range" min="80" max="100" value="95" step="1"></div>
+          <div class="btn-row"><button type="button" id="wmSave" class="btn-primary" disabled>下载水印图</button><button type="button" id="wmShare" class="btn-secondary" data-native-only hidden disabled>分享水印图</button></div>
+          <p class="hint wm-export-status" id="wmStatus" role="status" aria-live="polite"></p>
+        </section>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -235,6 +347,19 @@ const DEFAULT_SPACING = 40;
 let textCanvas = null;
 let uploadedImg = null;
 let mergeCanvas = null;
+let uploadedImageUrl = null;
+let uploadVersion = 0;
+let exportingImage = false;
+const MAX_CANVAS_PIXELS = 12000000;
+const MAX_CANVAS_SIDE = 16384;
+
+function canCreateCanvas(width, height) {
+  if (width > MAX_CANVAS_SIDE || height > MAX_CANVAS_SIDE || width * height > MAX_CANVAS_PIXELS) {
+    alert('图片尺寸过大，请减少文字、字号或输出宽度后重试。');
+    return false;
+  }
+  return true;
+}
 
 function getNumberValue(id, fallback) {
   const value = Number(document.getElementById(id).value);
@@ -399,6 +524,9 @@ function setPreview(canvas, imgId, boxId, buttonId) {
   document.getElementById(imgId).src = url;
   document.getElementById(boxId).style.display = 'block';
   document.getElementById(buttonId).style.display = 'inline-block';
+  document.getElementById('shareImage').style.display = 'inline-block';
+  document.getElementById('watermarkGenerated').style.display = 'inline-block';
+  window.dispatchEvent(new Event('image-tool-sourcechange'));
 }
 function hidePreview(imgId, boxId, buttonId) {
   document.getElementById(imgId).removeAttribute('src');
@@ -411,6 +539,10 @@ function markGeneratedStale() {
   hidePreview('textPreviewImg', 'textPreviewBox', 'dlText');
   hidePreview('mergePreviewImg', 'mergePreviewBox', 'dlMerge');
   document.getElementById('emptyPreview').style.display = 'flex';
+  document.getElementById('shareImage').style.display = 'none';
+  document.getElementById('exportStatus').textContent = '';
+  document.getElementById('watermarkGenerated').style.display = 'none';
+  window.dispatchEvent(new Event('image-tool-sourcechange'));
 }
 function buildTextCanvas({ showPreview = true } = {}) {
   const options = getOptions();
@@ -448,6 +580,7 @@ function buildTextCanvas({ showPreview = true } = {}) {
 
   const canvasWidth = textBoxWidth;
   const canvasHeight = options.textPadding * 2 + lines.length * lineHeight;
+  if (!canCreateCanvas(Math.ceil(canvasWidth * scale), Math.ceil(canvasHeight * scale))) return null;
   const canvas = document.createElement('canvas');
   canvas.width = Math.ceil(canvasWidth * scale);
   canvas.height = Math.ceil(canvasHeight * scale);
@@ -483,34 +616,52 @@ function generateText() {
 function handleUpload(e) {
   const file = e.target.files[0];
   if (!file) return;
+  const version = ++uploadVersion;
   const img = new Image();
+  const url = URL.createObjectURL(file);
   img.onload = () => {
+    if (version !== uploadVersion) {
+      URL.revokeObjectURL(url);
+      return;
+    }
+    if (uploadedImageUrl) URL.revokeObjectURL(uploadedImageUrl);
+    uploadedImageUrl = url;
     uploadedImg = img;
     const prev = document.getElementById('uploadPreview');
     prev.src = img.src;
     prev.style.display = 'block';
     document.getElementById('uploadArea').classList.add('has-img');
-    document.getElementById('uploadArea').textContent = '已上传：' + file.name;
+    document.getElementById('uploadArea').textContent = '已选择：' + file.name;
     document.getElementById('clearUpload').style.display = 'inline-block';
     updateWidthControls();
     markGeneratedStale();
   };
-  const reader = new FileReader();
-  reader.onload = (ev) => { img.src = ev.target.result; };
-  reader.readAsDataURL(file);
+  img.onerror = () => {
+    URL.revokeObjectURL(url);
+    if (version !== uploadVersion) return;
+    alert('无法读取这张图片，请选择 JPG、PNG 或 WebP 图片。');
+    e.target.value = '';
+  };
+  img.src = url;
 }
 function clearUploadedImg() {
+  uploadVersion++;
+  if (uploadedImageUrl) URL.revokeObjectURL(uploadedImageUrl);
+  uploadedImageUrl = null;
   uploadedImg = null;
   document.getElementById('uploadPreview').style.display = 'none';
   document.getElementById('uploadPreview').removeAttribute('src');
   document.getElementById('uploadArea').classList.remove('has-img');
-  document.getElementById('uploadArea').textContent = '点击上传图片（JPG / PNG / WebP）';
+  document.getElementById('uploadArea').textContent = window.nativeImageApp ? '点击选择手机里的图片' : '点击选择图片（JPG / PNG / WebP）';
   document.getElementById('clearUpload').style.display = 'none';
   document.getElementById('fileInput').value = '';
   updateWidthControls();
   markGeneratedStale();
 }
 function generateMerge() {
+  mergeCanvas = null;
+  hidePreview('mergePreviewImg', 'mergePreviewBox', 'dlMerge');
+  document.getElementById('emptyPreview').style.display = 'flex';
   const result = buildTextCanvas({ showPreview: true });
   if (!result) return;
   const { canvas: currentTextCanvas, options } = result;
@@ -532,6 +683,7 @@ function generateMerge() {
     + (uploadedImg ? imageHeight + options.contentGap : 0)
     + textHeight
     + options.outerMargin;
+  if (!canCreateCanvas(Math.ceil(canvasWidth * scale), Math.ceil(canvasHeight * scale))) return;
 
   const canvas = document.createElement('canvas');
   canvas.width = Math.ceil(canvasWidth * scale);
@@ -544,6 +696,8 @@ function generateMerge() {
   let y = options.outerMargin;
   if (uploadedImg) {
     const x = options.outerMargin + (contentWidth - imageWidth) / 2;
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
     ctx.drawImage(uploadedImg, x, y, imageWidth, imageHeight);
     y += imageHeight + options.contentGap;
   }
@@ -555,17 +709,63 @@ function generateMerge() {
   setPreview(canvas, 'mergePreviewImg', 'mergePreviewBox', 'dlMerge');
   document.getElementById('emptyPreview').style.display = 'none';
 }
-function dlCanvas(type) {
+async function dlCanvas(type) {
   const canvas = type === 'text' ? textCanvas : mergeCanvas;
   if (!canvas) return;
-  const a = document.createElement('a');
-  a.href = canvas.toDataURL('image/png');
-  a.download = type === 'text' ? '文字图.png' : '拼接图.png';
-  a.click();
+  await exportCanvas(canvas, type === 'text' ? '文字图' : '拼接图', false);
+}
+async function shareCanvas() {
+  const canvas = mergeCanvas || textCanvas;
+  if (canvas) await exportCanvas(canvas, mergeCanvas ? '拼接图' : '文字图', true);
+}
+async function exportCanvas(canvas, title, share, { mimeType = 'image/png', quality = 0.95, statusId = 'exportStatus' } = {}) {
+  if (exportingImage) return false;
+  exportingImage = true;
+  const status = document.getElementById(statusId);
+  const buttons = ['dlText', 'dlMerge', 'shareImage'].map(id => document.getElementById(id));
+  const nativeApp = window.nativeImageApp;
+  buttons.forEach(button => { button.disabled = true; });
+  status.textContent = share ? '正在准备分享…' : '正在保存…';
+  try {
+    const blob = await new Promise((resolve, reject) => canvas.toBlob(value => value ? resolve(value) : reject(new Error('生成图片失败，请减小图片尺寸后重试。')), mimeType, quality));
+    const extension = blob.type === 'image/jpeg' ? '.jpg' : '.png';
+    if (nativeApp) {
+      const dataUrl = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = () => reject(new Error('读取导出图片失败，请重试。'));
+        reader.readAsDataURL(blob);
+      });
+      const options = { data: dataUrl.slice(dataUrl.indexOf(',') + 1), name: title + '-' + Date.now() + extension, mimeType: blob.type };
+      if (share) {
+        await nativeApp.shareImage(options);
+        status.textContent = '已打开系统分享面板';
+      } else {
+        await nativeApp.saveImage(options);
+        status.textContent = '已保存到相册的「文字拼图」文件夹';
+      }
+    } else {
+      const a = document.createElement('a');
+      const url = URL.createObjectURL(blob);
+      a.href = url;
+      a.download = title + extension;
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(url), 60000);
+      status.textContent = '已发起图片下载';
+    }
+    status.textContent += ' · ' + (blob.size / 1024 / 1024).toFixed(2) + ' MB';
+    return true;
+  } catch (error) {
+    status.textContent = error.message || '保存失败，请重试。';
+    return false;
+  } finally {
+    exportingImage = false;
+    buttons.forEach(button => { button.disabled = false; });
+  }
 }
 
 updateWidthControls();
-document.querySelectorAll('textarea, input[type=number], input[type=color], select').forEach((control) => {
+document.querySelectorAll('#mergeTextFields textarea, #mergeStyleSection input, #mergeStyleSection select').forEach((control) => {
   control.addEventListener('input', markGeneratedStale);
   control.addEventListener('change', () => {
     if (control.id === 'widthMode') updateWidthControls();
@@ -573,5 +773,6 @@ document.querySelectorAll('textarea, input[type=number], input[type=color], sele
   });
 });
 </script>
+<script src="src/watermark.js"></script>
 </body>
 </html>

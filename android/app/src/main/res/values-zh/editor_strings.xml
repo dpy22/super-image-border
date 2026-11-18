@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ui_camera_make_a7d7e5" formatted="false">"品牌"</string>
+    <string name="ui_camera_model_e6a388" formatted="false">"相机型号"</string>
+    <string name="ui_lens_c7d192" formatted="false">"镜头"</string>
+    <string name="ui_focal_length_fa6a32" formatted="false">"焦距（mm）"</string>
+    <string name="ui_35_mm_equivalent_d72658" formatted="false">"35 mm 等效焦距"</string>
+    <string name="ui_aperture_dbce05" formatted="false">"光圈"</string>
+    <string name="ui_shutter_speed_328df5" formatted="false">"快门"</string>
+    <string name="ui_capture_date_77f00e" formatted="false">"拍摄日期"</string>
+    <string name="ui_time_zone_fb2a23" formatted="false">"时区"</string>
+    <string name="ui_photographer_0b69ae" formatted="false">"摄影者"</string>
+    <string name="ui_location_label_33eecc" formatted="false">"地点文字"</string>
+    <string name="ui_cannot_read_this_photo_relink_the_original_d7a804" formatted="false">"无法读取照片，请重新关联原图"</string>
+    <string name="ui_photo_48e9e5" formatted="false">"照片"</string>
+    <string name="ui_unsupported_image_format_export_raw_as_jpg_or_heif_119e37" formatted="false">"不支持这张照片的图像格式；RAW 请先导出为 JPG 或 HEIF"</string>
+    <string name="ui_equivalent_bd95cf" formatted="false">" 等效"</string>
+    <string name="ui_actual_56787e" formatted="false">" 实际"</string>
+    <string name="ui_original_unavailable_relink_the_photo_d8c607" formatted="false">"原图不可用，请重新关联"</string>
+    <string name="ui_label_582c50" formatted="false">"字"</string>
+    <string name="ui_natural_d63f61" formatted="false">"自然"</string>
+    <string name="ui_film_a27997" formatted="false">"胶片"</string>
+    <string name="ui_cinema_ba723f" formatted="false">"电影"</string>
+    <string name="ui_portrait_0509cd" formatted="false">"人像"</string>
+    <string name="ui_b_w_dd742f" formatted="false">"黑白"</string>
+    <string name="ui_basic_5f83e7" formatted="false">"基础"</string>
+    <string name="ui_all_778fc8" formatted="false">"全部"</string>
+    <string name="ui_filter_1_s_490839" formatted="false">"滤镜：%1$s"</string>
+    <string name="ui_filter_strength_0d7f34" formatted="false">"滤镜强度"</string>
+    <string name="ui_exposure_2c154b" formatted="false">"曝光"</string>
+    <string name="ui_contrast_9212a1" formatted="false">"对比度"</string>
+    <string name="ui_saturation_1e9ac8" formatted="false">"饱和度"</string>
+    <string name="ui_temperature_f3b0a7" formatted="false">"色温"</string>
+    <string name="ui_tint_3ce802" formatted="false">"色调"</string>
+    <string name="ui_highlights_1622f2" formatted="false">"高光"</string>
+    <string name="ui_shadows_7cfeac" formatted="false">"阴影"</string>
+    <string name="ui_sharpening_f4b1e4" formatted="false">"锐化"</string>
+    <string name="ui_vignette_1d3b02" formatted="false">"暗角"</string>
+    <string name="ui_cannot_encode_this_color_curve_as_icc_choose_srgb_b10036" formatted="false">"此色彩空间的曲线不能写入 ICC，请选择 sRGB"</string>
+    <string name="ui_could_not_import_logo_dcc8e6" formatted="false">"Logo 导入失败"</string>
+    <string name="ui_could_not_import_font_5ca5e8" formatted="false">"字体导入失败"</string>
+    <string name="ui_my_frame_style_d3c223" formatted="false">"我的边框样式"</string>
+    <string name="ui_preset_exported_327020" formatted="false">"预设已导出"</string>
+    <string name="ui_could_not_export_preset_9cb613" formatted="false">"预设导出失败"</string>
+    <string name="ui_share_7a9243" formatted="false">"分享"</string>
+    <string name="ui_select_up_to_100_photos_385ce1" formatted="false">"一次最多处理 100 张照片"</string>
+    <string name="ui_reading_photo_21bea4" formatted="false">"正在读取照片"</string>
+    <string name="ui_relink_photo_b25b42" formatted="false">"重新关联照片"</string>
+    <string name="ui_remove_photo_284a67" formatted="false">"移除照片"</string>
+    <string name="ui_choose_photos_4a8a30" formatted="false">"选择照片"</string>
+    <string name="ui_text_canvas_3c9525" formatted="false">"文字图"</string>
+    <string name="ui_tap_to_sample_e24590" formatted="false">"点按取色"</string>
+    <string name="ui_retry_preview_151114" formatted="false">"重试预览"</string>
+    <string name="ui_pause_130448" formatted="false">"暂停"</string>
+    <string name="ui_enable_hdr_4d4fc7" formatted="false">"启用 HDR"</string>
+    <string name="ui_the_current_adjustments_use_sdr_restore_original_c_1e29f0" formatted="false">"当前调色使用 SDR，恢复原始色彩后开启 HDR？"</string>
+    <string name="ui_restore_and_enable_9c7c7e" formatted="false">"恢复并启用"</string>
+    <string name="ui_keep_adjustments_1c9abc" formatted="false">"保留调色"</string>
+    <string name="ui_save_preset_ced36e" formatted="false">"保存个人预设"</string>
+    <string name="ui_preset_name_a32b08" formatted="false">"预设名称"</string>
+    <string name="ui_save_fadf24" formatted="false">"保存"</string>
+    <string name="ui_cancel_4d0b46" formatted="false">"取消"</string>
+    <string name="ui_export_188896" formatted="false">"导出"</string>
+    <string name="ui_reset_export_settings_8e5cc0" formatted="false">"恢复导出默认"</string>
+    <string name="ui_reset_a19193" formatted="false">"恢复默认"</string>
+    <string name="ui_close_export_3122cb" formatted="false">"关闭导出"</string>
+    <string name="ui_delete_draft_41d7dc" formatted="false">"删除草稿？"</string>
+    <string name="ui_delete_preset_884ea1" formatted="false">"删除预设？"</string>
+    <string name="ui_delete_export_record_d5bfe5" formatted="false">"删除任务记录？"</string>
+    <string name="ui_saved_images_will_be_kept_6393e9" formatted="false">"已保存的图片会保留。"</string>
+    <string name="ui_this_cannot_be_undone_bb7f36" formatted="false">"删除后无法恢复。"</string>
+    <string name="ui_delete_3755f5" formatted="false">"删除"</string>
+    <string name="ui_library_a32c78" formatted="false">"作品库"</string>
+    <string name="ui_more_9b0c6c" formatted="false">"更多"</string>
+    <string name="ui_save_as_preset_74c1d9" formatted="false">"保存为预设"</string>
+    <string name="ui_import_preset_e4ee6f" formatted="false">"导入预设"</string>
+    <string name="ui_export_current_preset_3b77b3" formatted="false">"导出当前预设"</string>
+    <string name="ui_my_frame_style_zip_f88408" formatted="false">"我的边框样式.zip"</string>
+    <string name="ui_legacy_tools_chinese_e4dbcc" formatted="false">"1.1 旧版工具"</string>
+    <string name="ui_done_33246f" formatted="false">"完成"</string>
+    <string name="ui_new_project_50280d" formatted="false">"新作品"</string>
+    <string name="ui_export_tasks_a79849" formatted="false">"导出任务"</string>
+    <string name="ui_presets_36f2c2" formatted="false">"个人预设"</string>
+    <string name="ui_drafts_0f4368" formatted="false">"草稿"</string>
+    <string name="ui_share_image_df80b4" formatted="false">"分享作品"</string>
+    <string name="ui_retry_e2d53a" formatted="false">"重试"</string>
+    <string name="ui_continue_1fc1af" formatted="false">"继续"</string>
+    <string name="ui_reduce_transparency_4d1128" formatted="false">"降低透明度"</string>
+    <string name="ui_favorites_d07cee" formatted="false">"收藏"</string>
+    <string name="ui_minimal_4d9492" formatted="false">"极简"</string>
+    <string name="ui_camera_plate_65e490" formatted="false">"铭牌"</string>
+    <string name="ui_palette_5ef29a" formatted="false">"配色"</string>
+    <string name="ui_glass_9d90a6" formatted="false">"玻璃"</string>
+    <string name="ui_paper_ba3eee" formatted="false">"相纸"</string>
+    <string name="ui_editorial_ad150c" formatted="false">"图文"</string>
+    <string name="ui_collage_78b698" formatted="false">"多图"</string>
+    <string name="ui_favorite_1_s_200108" formatted="false">"收藏 %1$s"</string>
+    <string name="ui_original_ratio_4905be" formatted="false">"原比例"</string>
+    <string name="ui_custom_c49333" formatted="false">"自定义"</string>
+    <string name="ui_canvas_aspect_ratio_711eb9" formatted="false">"画布宽高比"</string>
+    <string name="ui_rotate_a69e51" formatted="false">"旋转"</string>
+    <string name="ui_flip_e64cd6" formatted="false">"镜像"</string>
+    <string name="ui_photo_scale_b57dc4" formatted="false">"照片大小"</string>
+    <string name="ui_position_crop_7f3f4c" formatted="false">"位置与裁剪"</string>
+    <string name="ui_lock_photo_position_9f70a7" formatted="false">"锁定照片位置"</string>
+    <string name="ui_fill_frame_e60938" formatted="false">"裁剪填满画框"</string>
+    <string name="ui_rotation_cb165f" formatted="false">"旋转角度"</string>
+    <string name="ui_horizontal_position_190046" formatted="false">"水平位置"</string>
+    <string name="ui_vertical_position_aa2a1e" formatted="false">"垂直位置"</string>
+    <string name="ui_left_crop_c93f65" formatted="false">"左边界"</string>
+    <string name="ui_top_crop_b34df5" formatted="false">"上边界"</string>
+    <string name="ui_right_crop_9e4a53" formatted="false">"右边界"</string>
+    <string name="ui_bottom_crop_699828" formatted="false">"下边界"</string>
+    <string name="ui_relink_original_3ec83f" formatted="false">"重新关联原图"</string>
+    <string name="ui_frame_margins_a2c251" formatted="false">"四边留白"</string>
+    <string name="ui_separate_margins_3dd123" formatted="false">"四边单独调整"</string>
+    <string name="ui_left_856692" formatted="false">"左边"</string>
+    <string name="ui_top_046ca7" formatted="false">"上边"</string>
+    <string name="ui_right_b3ceb9" formatted="false">"右边"</string>
+    <string name="ui_bottom_343b38" formatted="false">"下边"</string>
+    <string name="ui_footer_margin_eb1129" formatted="false">"底栏留白"</string>
+    <string name="ui_metadata_height_77d15d" formatted="false">"参数栏高度"</string>
+    <string name="ui_corner_radius_9978b8" formatted="false">"圆角"</string>
+    <string name="ui_outer_stroke_9bcdda" formatted="false">"外描边"</string>
+    <string name="ui_inner_stroke_4e9d70" formatted="false">"内描边"</string>
+    <string name="ui_shadow_dd306a" formatted="false">"投影"</string>
+    <string name="ui_photo_palette_dae030" formatted="false">"照片配色"</string>
+    <string name="ui_match_photo_colors_1382d0" formatted="false">"自动跟随照片配色"</string>
+    <string name="ui_dominant_00eee0" formatted="false">"主色"</string>
+    <string name="ui_accent_b95519" formatted="false">"强调"</string>
+    <string name="ui_light_80ec9e" formatted="false">"浅色"</string>
+    <string name="ui_dark_30b2c9" formatted="false">"深色"</string>
+    <string name="ui_complement_269154" formatted="false">"互补"</string>
+    <string name="ui_color_8ef488" formatted="false">"颜色"</string>
+    <string name="ui_eyedropper_168a76" formatted="false">"吸管"</string>
+    <string name="ui_glass_effect_a7dad1" formatted="false">"玻璃质感"</string>
+    <string name="ui_blur_8d7f1e" formatted="false">"模糊"</string>
+    <string name="ui_glass_opacity_9dff13" formatted="false">"玻璃不透明度"</string>
+    <string name="ui_photo_tint_41ff4a" formatted="false">"照片染色"</string>
+    <string name="ui_elevation_3b1a5e" formatted="false">"悬浮高度"</string>
+    <string name="ui_tile_spacing_66cb5f" formatted="false">"平铺间距"</string>
+    <string name="ui_color_value_3def4d" formatted="false">"色值"</string>
+    <string name="ui_white_2d80ae" formatted="false">"白色"</string>
+    <string name="ui_black_5568c1" formatted="false">"黑色"</string>
+    <string name="ui_warm_white_519902" formatted="false">"暖白色"</string>
+    <string name="ui_sage_green_9672fc" formatted="false">"灰绿色"</string>
+    <string name="ui_transparent_b1a302" formatted="false">"透明"</string>
+    <string name="ui_photo_color_06x_f3a6ce" formatted="false">"照片颜色 #%06X"</string>
+    <string name="ui_ok_f526c8" formatted="false">"确定"</string>
+    <string name="ui_label_662b75" formatted="false">"灵感边框"</string>
+    <string name="ui_waiting_b24635" formatted="false">"等待导出"</string>
+    <string name="ui_exporting_e30445" formatted="false">"导出中"</string>
+    <string name="ui_paused_fcbae4" formatted="false">"已暂停"</string>
+    <string name="ui_some_exports_failed_791204" formatted="false">"部分失败"</string>
+    <string name="ui_completed_e99b48" formatted="false">"已完成"</string>
+    <string name="ui_resume_available_06ea04" formatted="false">"可恢复"</string>
+    <string name="ui_left_564db6" formatted="false">"居左"</string>
+    <string name="ui_center_500932" formatted="false">"居中"</string>
+    <string name="ui_right_ad23b4" formatted="false">"居右"</string>
+    <string name="ui_justify_076df0" formatted="false">"两端"</string>
+    <string name="ui_distribute_90399b" formatted="false">"分散"</string>
+    <string name="ui_body_alignment_1_s_90ead4" formatted="false">"正文%1$s"</string>
+    <string name="ui_watermark_alignment_1_s_cc1f90" formatted="false">"水印%1$s"</string>
+    <string name="ui_canvas_text_d8a9ba" formatted="false">"文字图内容"</string>
+    <string name="ui_text_below_photo_0ff788" formatted="false">"图片下方的文字"</string>
+    <string name="ui_clear_body_text_55a6d8" formatted="false">"清空正文"</string>
+    <string name="ui_clear_84fcd7" formatted="false">"清空"</string>
+    <string name="ui_system_1a1f6d" formatted="false">"系统"</string>
+    <string name="ui_serif_ccf2a4" formatted="false">"衬线"</string>
+    <string name="ui_monospace_c49fc6" formatted="false">"等宽"</string>
+    <string name="ui_custom_font_63a8e8" formatted="false">"自选字体"</string>
+    <string name="ui_import_font_4a9676" formatted="false">"导入字体"</string>
+    <string name="ui_text_width_de5123" formatted="false">"文字宽度"</string>
+    <string name="ui_match_canvas_edb491" formatted="false">"跟随画布"</string>
+    <string name="ui_match_photo_c76b61" formatted="false">"跟随照片"</string>
+    <string name="ui_by_character_count_8f076b" formatted="false">"按字数"</string>
+    <string name="ui_fixed_width_c828a5" formatted="false">"固定宽度"</string>
+    <string name="ui_characters_per_line_22e3b9" formatted="false">"每行字数"</string>
+    <string name="ui_font_size_576ccd" formatted="false">"字号"</string>
+    <string name="ui_1_s_px_auto_c9c45a" formatted="false">"%1$s px · 自动"</string>
+    <string name="ui_line_spacing_514b54" formatted="false">"行距"</string>
+    <string name="ui_paragraph_spacing_966e57" formatted="false">"段间距"</string>
+    <string name="ui_2f_em_2c3467" formatted="false">"%.2f 字高"</string>
+    <string name="ui_bold_f670b2" formatted="false">"加粗"</string>
+    <string name="ui_text_color_07f568" formatted="false">"文字颜色"</string>
+    <string name="ui_text_background_15c2a4" formatted="false">"文字区底色"</string>
+    <string name="ui_automatic_text_color_a63ded" formatted="false">"自动文字颜色"</string>
+    <string name="ui_match_frame_background_e0cb4d" formatted="false">"底色跟随边框"</string>
+    <string name="ui_photo_text_gap_4937d9" formatted="false">"图文间距"</string>
+    <string name="ui_side_padding_3ee338" formatted="false">"左右留白"</string>
+    <string name="ui_vertical_padding_f81235" formatted="false">"上下留白"</string>
+    <string name="ui_template_title_778d92" formatted="false">"模板标题"</string>
+    <string name="ui_show_1_s_373e37" formatted="false">"显示%1$s"</string>
+    <string name="ui_clear_1_s_c7e3ae" formatted="false">"清空%1$s"</string>
+    <string name="ui_restore_automatic_1_s_f8e14d" formatted="false">"恢复自动%1$s"</string>
+    <string name="ui_restore_79748c" formatted="false">"恢复"</string>
+    <string name="ui_original_exif_b0095f" formatted="false">"原图 EXIF"</string>
+    <string name="ui_close_6c14bd" formatted="false">"关闭"</string>
+    <string name="ui_show_camera_details_7640e2" formatted="false">"显示摄影参数"</string>
+    <string name="ui_metadata_options_69bbb4" formatted="false">"参数选项"</string>
+    <string name="ui_original_metadata_ea4951" formatted="false">"原图参数"</string>
+    <string name="ui_original_exif_1_s_d3a003" formatted="false">"原图 EXIF · %1$s"</string>
+    <string name="ui_read_metadata_again_4ecfac" formatted="false">"重新读取参数"</string>
+    <string name="ui_relink_original_file_1d86f3" formatted="false">"关联原文件"</string>
+    <string name="ui_right_of_photo_27d489" formatted="false">"照片右侧"</string>
+    <string name="ui_below_each_photo_1bc3f9" formatted="false">"每张照片下方"</string>
+    <string name="ui_below_photo_48eb8c" formatted="false">"照片下方"</string>
+    <string name="ui_1_s_fields_2_s_c558c2" formatted="false">"%1$s 项 · %2$s"</string>
+    <string name="ui_no_camera_details_to_display_44496d" formatted="false">"没有可显示的摄影参数"</string>
+    <string name="ui_edit_this_photo_only_2a923a" formatted="false">"只修改当前照片"</string>
+    <string name="ui_hide_empty_fields_131828" formatted="false">"收起未填写项"</string>
+    <string name="ui_add_camera_details_a6387b" formatted="false">"补充摄影参数"</string>
+    <string name="ui_dark_background_952e19" formatted="false">"深色底"</string>
+    <string name="ui_background_b999e8" formatted="false">"底色"</string>
+    <string name="ui_lock_position_0a541a" formatted="false">"锁定位置"</string>
+    <string name="ui_lock_0b707d" formatted="false">"锁定"</string>
+    <string name="ui_add_text_c20593" formatted="false">"添加文字"</string>
+    <string name="ui_import_logo_b6ae9e" formatted="false">"导入 Logo"</string>
+    <string name="ui_deselect_f02e94" formatted="false">"取消选择"</string>
+    <string name="ui_delete_watermark_1_s_388ec1" formatted="false">"删除水印 %1$s"</string>
+    <string name="ui_outline_a48b15" formatted="false">"描边"</string>
+    <string name="ui_watermark_text_ca25db" formatted="false">"水印文字"</string>
+    <string name="ui_delete_watermark_6ed303" formatted="false">"删除当前水印"</string>
+    <string name="ui_finish_text_editing_5375cc" formatted="false">"完成文字编辑"</string>
+    <string name="ui_text_465861" formatted="false">"文字内容"</string>
+    <string name="ui_signature_eb5b27" formatted="false">"署名"</string>
+    <string name="ui_label_ae0a7a" formatted="false">"标签"</string>
+    <string name="ui_tile_30c39a" formatted="false">"平铺"</string>
+    <string name="ui_logo_width_574a75" formatted="false">"Logo 宽度"</string>
+    <string name="ui_opacity_b4efb6" formatted="false">"不透明度"</string>
+    <string name="ui_position_on_photo_b8a2da" formatted="false">"以主照片定位"</string>
+    <string name="ui_position_on_canvas_ecf1b0" formatted="false">"以画布定位"</string>
+    <string name="ui_top_left_734cc2" formatted="false">"左上"</string>
+    <string name="ui_top_center_be38c8" formatted="false">"上中"</string>
+    <string name="ui_top_right_34f14b" formatted="false">"右上"</string>
+    <string name="ui_middle_left_e5c7e0" formatted="false">"左中"</string>
+    <string name="ui_middle_right_50827c" formatted="false">"右中"</string>
+    <string name="ui_bottom_left_3f4046" formatted="false">"左下"</string>
+    <string name="ui_bottom_center_db1b59" formatted="false">"下中"</string>
+    <string name="ui_bottom_right_a3b8fc" formatted="false">"右下"</string>
+    <string name="ui_2_0_201640" formatted="false">"灵感边框"</string>
+    <string name="ui_cannot_preserve_this_gamut_choose_srgb_cf0336" formatted="false">"暂不支持保留此色域，请选择 sRGB 兼容导出"</string>
+    <string name="ui_cannot_preserve_this_color_space_choose_srgb_763866" formatted="false">"此色彩空间暂不能保留，请选择 sRGB"</string>
+    <string name="ui_no_photo_or_text_to_export_a3e215" formatted="false">"没有可导出的照片或文字"</string>
+    <string name="ui_output_exceeds_60_000_pixels_per_edge_choose_a_sma_17b67a" formatted="false">"含框尺寸超过单边 60000 像素，请缩小最终输出尺寸"</string>
+    <string name="ui_hdr_export_requires_android_14_or_later_62e2c2" formatted="false">"HDR 导出需要 Android 14 或以上系统"</string>
+    <string name="ui_use_jpg_to_split_images_hdr_supports_a_whole_image_884100" formatted="false">"HDR 切图请先使用普通 JPG；HDR 整图导出可用"</string>
+    <string name="ui_restore_original_colors_for_hdr_export_creative_ad_ba525a" formatted="false">"HDR 保真模式请先复原调色；创意调色使用 SDR 导出"</string>
+    <string name="ui_export_paused_resume_from_export_tasks_983653" formatted="false">"导出已暂停，可从任务列表继续"</string>
+    <string name="ui_hdr_preview_requires_android_14_or_later_035393" formatted="false">"HDR 预览需要 Android 14 或以上系统"</string>
+    <string name="ui_hdr_preview_failed_7967ca" formatted="false">"HDR 场景预览失败"</string>
+    <string name="ui_hdr_requires_android_14_or_later_124c08" formatted="false">"HDR 需要 Android 14 或以上系统"</string>
+    <string name="ui_this_photo_has_no_supported_hdr_gain_map_28bc52" formatted="false">"当前照片不包含可识别的 HDR 增益图"</string>
+    <string name="ui_restore_original_colors_for_hdr_preview_and_export_94e41e" formatted="false">"HDR 预览与保真输出请先复原调色"</string>
+    <string name="ui_hdr_needs_about_1_s_mb_of_memory_choose_a_smaller__7048d2" formatted="false">"HDR 预计需要 %1$s MB 工作内存；请改用较小的自定义尺寸，或普通 JPG 导出"</string>
+    <string name="ui_cannot_read_a_photo_in_this_hdr_scene_bf2833" formatted="false">"HDR 场景中的普通照片无法读取"</string>
+    <string name="ui_hdr_gain_map_verification_failed_file_not_saved_bb4e60" formatted="false">"HDR 增益图验证失败，文件未保存"</string>
+    <string name="ui_preparing_export_6e17d6" formatted="false">"准备导出"</string>
+    <string name="ui_1_s_2_s_3_s_4_s_5_s_0508c8" formatted="false">"文字拼图-%1$s-%2$s-%3$s-%4$s.%5$s"</string>
+    <string name="ui_pictures_96a204" formatted="false">"Pictures/文字拼图"</string>
+    <string name="ui_cannot_create_an_image_in_the_gallery_5280ec" formatted="false">"无法创建相册文件"</string>
+    <string name="ui_not_enough_memory_choose_a_smaller_output_size_61d3b0" formatted="false">"内存不足，请选择较小输出尺寸"</string>
+    <string name="ui_task_paused_e4f239" formatted="false">"任务已暂停"</string>
+    <string name="ui_export_failed_675338" formatted="false">"导出失败"</string>
+    <string name="ui_paused_resume_from_export_tasks_e9e647" formatted="false">"已暂停，可从我的任务恢复"</string>
+    <string name="ui_saved_1_s_failed_2_s_view_export_tasks_for_details_fc093a" formatted="false">"完成 %1$s 张，%2$s 张失败；可在我的任务查看原因"</string>
+    <string name="ui_saved_to_gallery_1_s_51dd07" formatted="false">"已保存 %1$s 张作品到相册"</string>
+    <string name="ui_photo_export_5d752c" formatted="false">"图片导出"</string>
+    <string name="ui_exporting_2f866b" formatted="false">"灵感边框 · 导出中"</string>
+    <string name="ui_export_ultra_hdr_827b10" formatted="false">"导出 Ultra HDR"</string>
+    <string name="ui_restore_original_colors_and_export_the_whole_hdr_i_ac9209" formatted="false">"恢复原始色彩并导出 HDR 整图？"</string>
+    <string name="ui_restore_and_continue_bac923" formatted="false">"恢复并继续"</string>
+    <string name="ui_original_photo_pixels_7c0346" formatted="false">"保持照片像素"</string>
+    <string name="ui_sharing_a78df1" formatted="false">"兼容分享"</string>
+    <string name="ui_custom_size_1387e8" formatted="false">"自定义尺寸"</string>
+    <string name="ui_with_frame_1_s_2_s_px_21e661" formatted="false">"含框尺寸 %1$s × %2$s px"</string>
+    <string name="ui_jpg_quality_95_srgb_20ab2e" formatted="false">"JPG · 质量 95 · sRGB"</string>
+    <string name="ui_longest_edge_7cbc37" formatted="false">"输出最长边"</string>
+    <string name="ui_jpg_quality_1a9ba5" formatted="false">"JPG 质量"</string>
+    <string name="ui_source_gamut_a80a77" formatted="false">"原色域"</string>
+    <string name="ui_keep_camera_metadata_4f68fb" formatted="false">"保留原始摄影参数"</string>
+    <string name="ui_keep_gps_8304d4" formatted="false">"保留 GPS"</string>
+    <string name="ui_split_image_ae74be" formatted="false">"切图"</string>
+    <string name="ui_whole_image_d557c4" formatted="false">"整张"</string>
+    <string name="ui_2_horizontal_tiles_8afa4e" formatted="false">"横向 2 张"</string>
+    <string name="ui_3_horizontal_tiles_c387ff" formatted="false">"横向 3 张"</string>
+    <string name="ui_4_horizontal_tiles_9ae4a8" formatted="false">"横向 4 张"</string>
+    <string name="ui_5_horizontal_tiles_cde878" formatted="false">"横向 5 张"</string>
+    <string name="ui_3_3_grid_47a04d" formatted="false">"九宫格"</string>
+    <string name="ui_save_current_image_1d33ed" formatted="false">"保存当前作品"</string>
+    <string name="ui_batch_export_1_s_b95927" formatted="false">"批量保存 %1$s 张"</string>
+    <string name="ui_classic_negative_cdd1cd" formatted="false">"经典负片"</string>
+    <string name="ui_classic_negative_cyan_8c19ee" formatted="false">"经典负片·青"</string>
+    <string name="ui_classic_chrome_119f3f" formatted="false">"经典正片"</string>
+    <string name="ui_nostalgic_negative_7bba04" formatted="false">"怀旧负片"</string>
+    <string name="ui_warm_negative_e23227" formatted="false">"暖色负片"</string>
+    <string name="ui_vivid_slide_bc74be" formatted="false">"鲜艳反转"</string>
+    <string name="ui_airy_film_d47e51" formatted="false">"日系通透"</string>
+    <string name="ui_soft_cinema_459707" formatted="false">"影院柔调"</string>
+    <string name="ui_coastal_teal_orange_50a982" formatted="false">"海岸青橙"</string>
+    <string name="ui_bleach_bypass_0e0d14" formatted="false">"漂白电影"</string>
+    <string name="ui_amber_night_c32723" formatted="false">"琥珀夜景"</string>
+    <string name="ui_urban_cool_91d339" formatted="false">"都市冷调"</string>
+    <string name="ui_soft_portrait_263f25" formatted="false">"柔光人像"</string>
+    <string name="ui_pink_haze_e64ce1" formatted="false">"粉雾人像"</string>
+    <string name="ui_blue_hour_384a93" formatted="false">"柔蓝时刻"</string>
+    <string name="ui_film_monochrome_bd4067" formatted="false">"胶片黑白"</string>
+    <string name="ui_silver_monochrome_840899" formatted="false">"银盐黑白"</string>
+    <string name="ui_vintage_sepia_dec6f6" formatted="false">"复古棕褐"</string>
+    <string name="ui_photo_permissions_changed_715217" formatted="false">"照片访问权限已变化"</string>
+    <string name="ui_cannot_open_the_gallery_83f81d" formatted="false">"相册暂时无法读取"</string>
+    <string name="ui_could_not_load_more_photos_908d6e" formatted="false">"加载更多照片失败"</string>
+    <string name="ui_choose_your_photos_799d62" formatted="false">"选择你的照片"</string>
+    <string name="ui_open_photo_permissions_fabfe5" formatted="false">"打开照片权限"</string>
+    <string name="ui_allow_photo_access_577145" formatted="false">"允许访问照片"</string>
+    <string name="ui_system_picker_ba74eb" formatted="false">"系统选图"</string>
+    <string name="ui_import_from_files_58333d" formatted="false">"从文件导入"</string>
+    <string name="ui_no_accessible_photos_cbca62" formatted="false">"暂无可访问的照片"</string>
+    <string name="ui_manage_photos_5f2a79" formatted="false">"管理照片"</string>
+    <string name="ui_selected_photo_1_s_a35786" formatted="false">"第 %1$s 张，已选择"</string>
+    <string name="ui_not_selected_53e2db" formatted="false">"未选择"</string>
+    <string name="ui_retry_loading_b647ee" formatted="false">"重试加载"</string>
+    <string name="ui_manage_accessible_photos_507639" formatted="false">"管理可访问照片"</string>
+    <string name="ui_photo_permissions_32c013" formatted="false">"照片权限设置"</string>
+    <string name="ui_allow_original_metadata_16df39" formatted="false">"允许原始拍摄信息"</string>
+    <string name="ui_recent_photos_b287b1" formatted="false">"最近照片"</string>
+    <string name="ui_selection_limit_1_s_e67a93" formatted="false">"最多选择 %1$s 张"</string>
+    <string name="ui_add_94191c" formatted="false">"添加"</string>
+    <string name="ui_add_1_s_71bf51" formatted="false">"添加 (%1$s)"</string>
+    <string name="ui_cannot_read_hdr_photo_66345c" formatted="false">"HDR 照片无法读取"</string>
+    <string name="ui_this_photo_has_no_supported_hdr_gain_map_ed095c" formatted="false">"照片缺少可识别的 HDR 增益图"</string>
+    <string name="ui_editing_this_hdr_base_format_is_not_supported_0906eb" formatted="false">"此 HDR 基图格式尚不支持编辑"</string>
+    <string name="ui_cannot_read_hdr_base_color_space_9c0c4e" formatted="false">"HDR 基图色彩空间无法读取"</string>
+    <string name="ui_invalid_hdr_gain_map_parameters_e9f861" formatted="false">"HDR 增益图参数无效"</string>
+    <string name="ui_angle_96ba4a" formatted="false">"角度"</string>
+    <string name="ui_longest_edge_aea90f" formatted="false">"最长边"</string>
+    <string name="ui_templates_06d0f3" formatted="false">"模板"</string>
+    <string name="ui_canvas_8368b4" formatted="false">"画幅"</string>
+    <string name="ui_frame_26f728" formatted="false">"边框"</string>
+    <string name="ui_text_f4d3da" formatted="false">"文字"</string>
+    <string name="ui_metadata_749d76" formatted="false">"参数"</string>
+    <string name="ui_watermark_d52f4e" formatted="false">"水印"</string>
+    <string name="ui_adjust_d9a200" formatted="false">"调色"</string>
+    <string name="ui_undo_9fcefd" formatted="false">"撤销"</string>
+    <string name="ui_redo_1238f0" formatted="false">"重做"</string>
+    <string name="ui_reset_1_s_3fbe5d" formatted="false">"恢复%1$s默认"</string>
+    <string name="ui_collapse_panel_1553bf" formatted="false">"收起面板"</string>
+    <string name="ui_add_photos_989644" formatted="false">"添加照片"</string>
+    <string name="ui_remove_1_s_58c704" formatted="false">"移除 %1$s"</string>
+    <string name="ui_uncategorized_b28f13" formatted="false">"未分类"</string>
+    <string name="ui_soft_84343b" formatted="false">"柔和"</string>
+    <string name="ui_warm_day_d3601b" formatted="false">"暖日"</string>
+    <string name="ui_cool_ff6f5e" formatted="false">"冷调"</string>
+    <string name="ui_faded_film_e9ffa9" formatted="false">"褪色胶片"</string>
+    <string name="ui_vivid_00eef7" formatted="false">"鲜明"</string>
+    <string name="ui_classic_b_w_830740" formatted="false">"经典黑白"</string>
+    <string name="ui_high_contrast_b_w_ac8156" formatted="false">"高反差黑白"</string>
+    <string name="ui_my_work_d16228" formatted="false">"© 我的作品"</string>
+    <string name="ui_this_project_version_is_not_supported_c21cd6" formatted="false">"此工程版本暂不支持"</string>
+    <string name="ui_original_cd0f3a" formatted="false">"原图"</string>
+    <string name="ui_editing_preview_260fc3" formatted="false">"编辑预览"</string>
+    <string name="ui_fit_to_screen_47ba68" formatted="false">"适应屏幕"</string>
+    <string name="ui_cannot_read_logo_61255f" formatted="false">"无法读取 Logo"</string>
+    <string name="ui_logo_must_be_20_mb_or_less_3a7a3d" formatted="false">"Logo 不超过 20 MB"</string>
+    <string name="ui_svg_cannot_contain_scripts_external_references_or__adb444" formatted="false">"SVG 不能包含脚本、外部引用或外链样式"</string>
+    <string name="ui_choose_png_webp_or_a_supported_svg_dedf15" formatted="false">"请选择 PNG、WebP 或受限 SVG 图片"</string>
+    <string name="ui_could_not_decode_logo_81345f" formatted="false">"Logo 解码失败"</string>
+    <string name="ui_font_must_be_20_mb_or_less_dc0c01" formatted="false">"字体不超过 20 MB"</string>
+    <string name="ui_only_assets_imported_by_this_app_can_be_packaged_929088" formatted="false">"仅可打包本应用导入的素材"</string>
+    <string name="ui_asset_is_too_large_6d8660" formatted="false">"素材过大"</string>
+    <string name="ui_too_many_preset_assets_82af9a" formatted="false">"预设素材过多"</string>
+    <string name="ui_invalid_preset_path_a596c2" formatted="false">"预设路径无效"</string>
+    <string name="ui_unsupported_file_in_preset_b4bb05" formatted="false">"预设包含不支持的文件"</string>
+    <string name="ui_preset_package_is_too_large_8c9895" formatted="false">"预设包过大"</string>
+    <string name="ui_this_preset_version_is_not_supported_a443a3" formatted="false">"此预设版本不支持"</string>
+    <string name="ui_presets_cannot_reference_external_assets_a78667" formatted="false">"预设不能引用外部素材"</string>
+    <string name="ui_invalid_asset_reference_eec612" formatted="false">"素材引用无效"</string>
+    <string name="ui_missing_preset_asset_f685e2" formatted="false">"预设缺少素材"</string>
+    <string name="ui_invalid_logo_dimensions_c5883b" formatted="false">"预设 Logo 尺寸无效"</string>
+    <string name="ui_imported_preset_4d8029" formatted="false">"导入的预设"</string>
+    <string name="ui_cannot_read_photo_region_33a01d" formatted="false">"照片分块读取失败"</string>
+    <string name="ui_cannot_read_photo_2140dd" formatted="false">"照片无法读取"</string>
+    <string name="ui_invalid_crop_area_963db3" formatted="false">"裁剪区域无效"</string>
+    <string name="ui_cannot_read_logo_import_it_again_4e1428" formatted="false">"Logo 无法读取，请重新导入"</string>
+    <string name="ui_text_project_d280e8" formatted="false">"文字作品"</string>
+    <string name="ui_not_enough_memory_for_preview_43f118" formatted="false">"预览内存不足"</string>
+    <string name="ui_not_enough_memory_choose_a_smaller_photo_f569fa" formatted="false">"预览内存不足，请选择较小图片"</string>
+    <string name="ui_preview_failed_d28588" formatted="false">"预览失败"</string>
+    <string name="ui_preview_failed_relink_the_photo_92093d" formatted="false">"预览失败，请重新关联照片"</string>
+    <string name="ui_cannot_read_this_draft_original_data_was_kept_fb5207" formatted="false">"旧草稿无法读取，已保留原数据"</string>
+    <string name="ui_cannot_read_drafts_retry_from_the_library_76631b" formatted="false">"草稿读取失败，可在作品库重试"</string>
+    <string name="ui_switched_to_sdr_adjustments_0621af" formatted="false">"已切换为 SDR 调色"</string>
+    <string name="ui_add_up_to_30_watermarks_29f486" formatted="false">"最多添加 30 个水印"</string>
+    <string name="ui_some_photos_could_not_be_read_2cd483" formatted="false">"部分照片无法读取"</string>
+    <string name="ui_imported_1_s_7222dc" formatted="false">"已导入 %1$s 张照片"</string>
+    <string name="ui_original_metadata_fields_1_s_b285ac" formatted="false">"已读取 %1$s 项原图参数"</string>
+    <string name="ui_cannot_read_metadata_relink_the_original_92618e" formatted="false">"原图参数读取失败，请重新关联原图"</string>
+    <string name="ui_cannot_read_1_s_5c2543" formatted="false">"无法读取：%1$s"</string>
+    <string name="ui_my_style_b4a4b2" formatted="false">"我的样式"</string>
+    <string name="ui_preset_saved_on_this_device_e5aaf7" formatted="false">"样式已保存在本机"</string>
+    <string name="ui_legacy_watermark_settings_imported_58f9f8" formatted="false">"已迁移 1.1 版的水印设置"</string>
+    <string name="ui_an_export_is_already_running_4f4d23" formatted="false">"已有导出任务正在运行"</string>
+    <string name="ui_choose_a_photo_or_create_a_text_canvas_415bbb" formatted="false">"请先选择照片或创建文字图"</string>
+    <string name="ui_export_1_s_785636" formatted="false">"导出 %1$s 张作品"</string>
+    <string name="ui_cannot_start_export_1_s_08ea04" formatted="false">"无法开始导出：%1$s"</string>
+    <string name="ui_resuming_task_b0f8b7" formatted="false">"正在恢复任务"</string>
+    <string name="ui_import_failed_1_s_7bab25" formatted="false">"导入失败：%1$s"</string>
+    <string name="ui_preset_imported_a64bd1" formatted="false">"预设已导入"</string>
+    <string name="ui_numeric_edit">编辑%1$s</string>
+    <string name="ui_numeric_decrease">减小%1$s</string>
+    <string name="ui_numeric_increase">增大%1$s</string>
+    <string name="ui_numeric_range">请输入 %1$s–%2$s</string>
+    <string name="ui_numeric_invalid">请输入范围内的有效数值</string>
+    <string name="ui_numeric_whole">请输入整数</string>
+    <string name="ui_numeric_characters">字</string>
+    <string name="ui_numeric_fitted">适配后：%1$s px</string>
+    <string name="ui_numeric_sign">切换正负</string>
+    <string name="ui_numeric_decimals">最多 %1$d 位小数</string>
+    <string name="ui_metadata_padding">参数留白</string>
+    <string name="ui_metadata_layout">位置与排列</string>
+    <string name="ui_metadata_position">位置</string>
+    <string name="ui_metadata_arrangement">排列</string>
+    <string name="ui_metadata_stacked">纵排</string>
+    <string name="ui_metadata_split">分栏</string>
+    <string name="ui_metadata_alignment">对齐</string>
+    <string name="ui_metadata_photo_gap">照片间距</string>
+    <string name="ui_metadata_column_width">参数区宽度</string>
+    <string name="ui_metadata_alignment_value">参数对齐：%1$s</string>
+</resources>

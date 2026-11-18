@@ -1,0 +1,229 @@
+{
+  "version": 1,
+  "templates": [
+    {
+      "id": "white",
+      "name": "纯白",
+      "family": 0,
+      "variant": 0,
+      "category": "极简留白"
+    },
+    {
+      "id": "black",
+      "name": "纯黑",
+      "family": 0,
+      "variant": 1,
+      "category": "极简留白"
+    },
+    {
+      "id": "cream",
+      "name": "暖米白",
+      "family": 0,
+      "variant": 2,
+      "category": "极简留白"
+    },
+    {
+      "id": "double",
+      "name": "双层细线",
+      "family": 0,
+      "variant": 3,
+      "category": "极简留白"
+    },
+    {
+      "id": "plate",
+      "name": "横向底栏",
+      "family": 1,
+      "variant": 0,
+      "category": "摄影铭牌"
+    },
+    {
+      "id": "split-plate",
+      "name": "左右分栏",
+      "family": 1,
+      "variant": 1,
+      "category": "摄影铭牌"
+    },
+    {
+      "id": "side-plate",
+      "name": "侧边参数",
+      "family": 1,
+      "variant": 2,
+      "category": "摄影铭牌"
+    },
+    {
+      "id": "center-plate",
+      "name": "居中铭牌",
+      "family": 1,
+      "variant": 3,
+      "category": "摄影铭牌"
+    },
+    {
+      "id": "dominant",
+      "name": "主色边框",
+      "family": 2,
+      "variant": 0,
+      "category": "照片配色"
+    },
+    {
+      "id": "gradient",
+      "name": "双色渐变",
+      "family": 2,
+      "variant": 1,
+      "category": "照片配色"
+    },
+    {
+      "id": "palette",
+      "name": "五色色卡",
+      "family": 2,
+      "variant": 2,
+      "category": "照片配色"
+    },
+    {
+      "id": "complement",
+      "name": "互补配色",
+      "family": 2,
+      "variant": 3,
+      "category": "照片配色"
+    },
+    {
+      "id": "blur",
+      "name": "同图雾化",
+      "family": 3,
+      "variant": 0,
+      "category": "玻璃质感"
+    },
+    {
+      "id": "glass-light",
+      "name": "浅色毛玻璃",
+      "family": 3,
+      "variant": 1,
+      "category": "玻璃质感"
+    },
+    {
+      "id": "glass-dark",
+      "name": "深色毛玻璃",
+      "family": 3,
+      "variant": 2,
+      "category": "玻璃质感"
+    },
+    {
+      "id": "glass-float",
+      "name": "悬浮玻璃卡",
+      "family": 3,
+      "variant": 3,
+      "category": "玻璃质感"
+    },
+    {
+      "id": "polaroid",
+      "name": "拍立得",
+      "family": 4,
+      "variant": 0,
+      "category": "相纸与装裱"
+    },
+    {
+      "id": "paper",
+      "name": "细纹相纸",
+      "family": 4,
+      "variant": 1,
+      "category": "相纸与装裱"
+    },
+    {
+      "id": "gallery",
+      "name": "画廊卡纸",
+      "family": 4,
+      "variant": 2,
+      "category": "相纸与装裱"
+    },
+    {
+      "id": "inset",
+      "name": "内凹装裱",
+      "family": 4,
+      "variant": 3,
+      "category": "相纸与装裱"
+    },
+    {
+      "id": "film",
+      "name": "胶片齿孔",
+      "family": 5,
+      "variant": 0,
+      "category": "胶片与电影"
+    },
+    {
+      "id": "cinema",
+      "name": "宽银幕",
+      "family": 5,
+      "variant": 1,
+      "category": "胶片与电影"
+    },
+    {
+      "id": "contact",
+      "name": "接触印样",
+      "family": 5,
+      "variant": 2,
+      "category": "胶片与电影"
+    },
+    {
+      "id": "viewfinder",
+      "name": "日期取景框",
+      "family": 5,
+      "variant": 3,
+      "category": "胶片与电影"
+    },
+    {
+      "id": "postcard",
+      "name": "明信片",
+      "family": 6,
+      "variant": 0,
+      "category": "图文作品"
+    },
+    {
+      "id": "magazine",
+      "name": "杂志标题",
+      "family": 6,
+      "variant": 1,
+      "category": "图文作品"
+    },
+    {
+      "id": "journal",
+      "name": "旅行札记",
+      "family": 6,
+      "variant": 2,
+      "category": "图文作品"
+    },
+    {
+      "id": "text-card",
+      "name": "图文长卡",
+      "family": 6,
+      "variant": 3,
+      "category": "图文作品"
+    },
+    {
+      "id": "diptych",
+      "name": "双联",
+      "family": 7,
+      "variant": 0,
+      "category": "多图呈现"
+    },
+    {
+      "id": "triptych",
+      "name": "三联",
+      "family": 7,
+      "variant": 1,
+      "category": "多图呈现"
+    },
+    {
+      "id": "grid",
+      "name": "四宫格",
+      "family": 7,
+      "variant": 2,
+      "category": "多图呈现"
+    },
+    {
+      "id": "long",
+      "name": "长图拼接",
+      "family": 7,
+      "variant": 3,
+      "category": "多图呈现"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+<resources>
+    <string name="template_white">White</string>
+    <string name="template_black">Black</string>
+    <string name="template_cream">Warm Cream</string>
+    <string name="template_double">Double Outline</string>
+    <string name="template_plate">Bottom Plate</string>
+    <string name="template_split_plate">Split Plate</string>
+    <string name="template_side_plate">Side Details</string>
+    <string name="template_center_plate">Centered Plate</string>
+    <string name="template_dominant">Dominant Color</string>
+    <string name="template_gradient">Duotone Gradient</string>
+    <string name="template_palette">Five-color Palette</string>
+    <string name="template_complement">Complementary Colors</string>
+    <string name="template_blur">Blurred Photo</string>
+    <string name="template_glass_light">Light Frost</string>
+    <string name="template_glass_dark">Dark Frost</string>
+    <string name="template_glass_float">Floating Glass</string>
+    <string name="template_polaroid">Instant Print</string>
+    <string name="template_paper">Textured Paper</string>
+    <string name="template_gallery">Gallery Mat</string>
+    <string name="template_inset">Recessed Mat</string>
+    <string name="template_film">Film Perforations</string>
+    <string name="template_cinema">Widescreen</string>
+    <string name="template_contact">Contact Sheet</string>
+    <string name="template_viewfinder">Date Viewfinder</string>
+    <string name="template_postcard">Postcard</string>
+    <string name="template_magazine">Magazine</string>
+    <string name="template_journal">Travel Journal</string>
+    <string name="template_text_card">Long Story</string>
+    <string name="template_diptych">Diptych</string>
+    <string name="template_triptych">Triptych</string>
+    <string name="template_grid">Four-photo Grid</string>
+    <string name="template_long">Vertical Stitch</string>
+</resources>

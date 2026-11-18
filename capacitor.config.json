@@ -1,0 +1,16 @@
+{
+  "appId": "com.parker.imageborder",
+  "appName": "灵感边框",
+  "webDir": "dist",
+  "plugins": {
+    "SystemBars": {
+      "insetsHandling": "css",
+      "initialViewportFitValueHint": "cover",
+      "style": "LIGHT"
+    }
+  },
+  "android": {
+    "backgroundColor": "#f5f5f5",
+    "allowMixedContent": false
+  }
+}

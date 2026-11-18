@@ -1,0 +1,34 @@
+<resources>
+    <string name="template_white">纯白</string>
+    <string name="template_black">纯黑</string>
+    <string name="template_cream">暖米白</string>
+    <string name="template_double">双层细线</string>
+    <string name="template_plate">横向底栏</string>
+    <string name="template_split_plate">左右分栏</string>
+    <string name="template_side_plate">侧边参数</string>
+    <string name="template_center_plate">居中铭牌</string>
+    <string name="template_dominant">主色边框</string>
+    <string name="template_gradient">双色渐变</string>
+    <string name="template_palette">五色色卡</string>
+    <string name="template_complement">互补配色</string>
+    <string name="template_blur">同图雾化</string>
+    <string name="template_glass_light">浅色毛玻璃</string>
+    <string name="template_glass_dark">深色毛玻璃</string>
+    <string name="template_glass_float">悬浮玻璃卡</string>
+    <string name="template_polaroid">拍立得</string>
+    <string name="template_paper">细纹相纸</string>
+    <string name="template_gallery">画廊卡纸</string>
+    <string name="template_inset">内凹装裱</string>
+    <string name="template_film">胶片齿孔</string>
+    <string name="template_cinema">宽银幕</string>
+    <string name="template_contact">接触印样</string>
+    <string name="template_viewfinder">日期取景框</string>
+    <string name="template_postcard">明信片</string>
+    <string name="template_magazine">杂志标题</string>
+    <string name="template_journal">旅行札记</string>
+    <string name="template_text_card">图文长卡</string>
+    <string name="template_diptych">双联</string>
+    <string name="template_triptych">三联</string>
+    <string name="template_grid">四宫格</string>
+    <string name="template_long">长图拼接</string>
+</resources>

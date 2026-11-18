@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_title">设置</string>
+    <string name="settings_back">返回</string>
+    <string name="settings_general">通用</string>
+    <string name="settings_language">语言</string>
+    <string name="settings_follow_system">跟随系统</string>
+    <string name="settings_cancel">取消</string>
+    <string name="settings_reduce_transparency">降低透明度</string>
+    <string name="settings_library">作品库</string>
+    <string name="settings_keep_records">草稿与已完成任务</string>
+    <string name="settings_latest_five">最近 5 条</string>
+    <string name="settings_about">关于</string>
+    <string name="settings_version">版本</string>
+    <string name="settings_privacy">隐私</string>
+    <string name="settings_legacy">旧版工具（仅中文）</string>
+    <string name="privacy_photos_title">本机处理</string>
+    <string name="privacy_photos_body">照片在设备上处理，无需账号，不上传照片。仅在你主动分享时，将选定的成片交给其他应用。</string>
+    <string name="privacy_access_title">照片访问</string>
+    <string name="privacy_access_body">照片访问范围由你选择。原始拍摄信息权限用于读取原始照片文件，不申请设备实时定位。</string>
+    <string name="privacy_metadata_title">摄影参数</string>
+    <string name="privacy_metadata_body">草稿排除 GPS 和设备序列号。导出默认移除 GPS，可在导出设置中单独选择是否保留。</string>
+    <string name="privacy_records_title">本地记录</string>
+    <string name="privacy_records_body">作品库整理为最近五份草稿和五条已完成导出记录。当前作品、未完成任务、个人预设、原图及相册中已保存的成片保留。</string>
+    <string name="brand_tagline">照片边框与水印</string>
+    <string name="settings_drafts">草稿</string>
+    <string name="settings_exports">导出记录</string>
+    <string name="settings_recent_drafts">最近 5 份</string>
+    <string name="settings_recent_exports">最近 5 条</string>
+</resources>

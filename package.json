@@ -1,0 +1,24 @@
+{
+  "name": "super-image-border",
+  "version": "2.0.13",
+  "private": true,
+  "description": "离线原生 Android 照片边框、水印、摄影铭牌与图文编辑器",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "android:sync": "npm run build && cap sync android",
+    "android:build": "npm run android:sync && bash scripts/android.sh build",
+    "android:install": "bash scripts/android.sh install",
+    "android:devices": "bash scripts/android.sh devices",
+    "android:native": "bash scripts/android.sh build",
+    "android:test-build": "bash scripts/android.sh test-build"
+  },
+  "dependencies": {
+    "@capacitor/android": "8.5.3",
+    "@capacitor/core": "8.5.3"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "8.6.2",
+    "esbuild": "0.28.2"
+  }
+}
